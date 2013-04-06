@@ -1,0 +1,18 @@
+name: jNoDrops
+author: jsne10
+version: 1.2
+description: Simple bukkit anti-drop system.
+website: http://dev.bukkit.org/server-mods/jnodrops/
+
+main: com.jsne10.nodrops.NoDrops
+permissions:
+  jnodrops.*:
+    children:
+      jnodrops.candrop = true
+      jnodrops.dropondeath = true
+  jnodrops.candrop:
+    default: op
+    description: Allows players to drop item normally. 
+  jnodrops.dropondeath:
+    default: op
+    description: Players will drop their inventory upon death.
