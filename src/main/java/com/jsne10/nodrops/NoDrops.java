@@ -13,8 +13,7 @@ public class NoDrops extends JavaPlugin {
 	public void onEnable() {
 
 		// Registers the Drop listener events.
-		this.getServer().getPluginManager()
-				.registerEvents(new DropsDisable(), this);
+		this.getServer().getPluginManager().registerEvents(new DropsDisable(), this);
 
 	}
 
