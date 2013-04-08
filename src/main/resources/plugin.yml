@@ -8,8 +8,8 @@ main: com.jsne10.nodrops.NoDrops
 permissions:
   jnodrops.*:
     children:
-      jnodrops.candrop = true
-      jnodrops.dropondeath = true
+      jnodrops.candrop: true
+      jnodrops.dropondeath: true
   jnodrops.candrop:
     default: op
     description: Allows players to drop item normally. 
