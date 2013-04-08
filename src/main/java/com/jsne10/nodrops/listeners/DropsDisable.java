@@ -9,10 +9,16 @@ public class DropsDisable implements Listener {
 
 	@EventHandler
 	public void onBlockDrop(PlayerDropItemEvent event) {
-		if (!event.getPlayer().hasPermission("jnodrops.candrop." + event.getPlayer().getWorld().getName()) || 
-			!event.getPlayer().hasPermission("jnodrops.candrop") && !event.isCancelled()) {
-			event.setCancelled(true);
-			event.getPlayer().sendMessage(ChatColor.RED + "[NoDrops] " + ChatColor.GRAY + "You must not share items!");
+		if (!event.getPlayer().hasPermission("jnodrops.candrop")) {
+			
+			if (!event.getPlayer().hasPermission("jnodrops.candrop." + event.getPlayer().getWorld().getName())) {
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(ChatColor.RED + "[NoDrops] " + ChatColor.GRAY + "You must not share items!");
+				return;
+			} else {
+				return;
+			}
+			
 		}
 	}
 	

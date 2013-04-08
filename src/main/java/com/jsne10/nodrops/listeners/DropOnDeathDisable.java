@@ -8,8 +8,14 @@ public class DropOnDeathDisable implements Listener {
 
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
-		if (!event.getEntity().hasPermission("jnodrops.dropondeath") || !event.getEntity().hasPermission("jnodrops.dropondeath." + event.getEntity().getWorld().getName())) {
-			event.getDrops().clear();
+		if (!event.getEntity().hasPermission("jnodrops.dropondeath")) {
+			
+			if (!event.getEntity().hasPermission("jnodrops.dropondeath." + event.getEntity().getWorld().getName())) {
+				event.getDrops().clear();
+			} else {
+				return;
+			}
+			
 		}
 	}
 	
