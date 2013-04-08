@@ -18,10 +18,7 @@ public class NoDrops extends JavaPlugin {
 		plugin = this;
 
 		// Registers the Drop listener events.
-<<<<<<< HEAD
 		this.getServer().getPluginManager().registerEvents(new DropsDisable(), this);
-=======
-		this.getServer().getPluginManager().registerEvents(new DropDisable(), this);
 		this.getServer().getPluginManager().registerEvents(new DropOnDeathDisable(), this);
 		
 		// Plugin Metrics.
@@ -32,7 +29,6 @@ public class NoDrops extends JavaPlugin {
 		} catch (IOException e) {
 		    this.getLogger().warning("Failed to connect to Plugin Metrics");
 		}
->>>>>>> Added seperate classes/package for listeners.
 
 	}
 
