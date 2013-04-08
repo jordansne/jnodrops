@@ -1,48 +1,43 @@
 package com.jsne10.nodrops;
 
-import org.bukkit.ChatColor;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
+import com.jsne10.nodrops.listeners.*;
+
+import java.io.IOException;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.jsne10.nodrops.util.Metrics;
+
 public class NoDrops extends JavaPlugin {
+	
+	public static NoDrops plugin;
 
 	@Override
 	public void onEnable() {
+		
+		plugin = this;
 
 		// Registers the Drop listener events.
+<<<<<<< HEAD
 		this.getServer().getPluginManager().registerEvents(new DropsDisable(), this);
+=======
+		this.getServer().getPluginManager().registerEvents(new DropDisable(), this);
+		this.getServer().getPluginManager().registerEvents(new DropOnDeathDisable(), this);
+		
+		// Plugin Metrics.
+		try {
+		    Metrics metrics = new Metrics(this);
+		    metrics.start();
+		    this.getLogger().info("Successfully connected to Plugin Metrics.");
+		} catch (IOException e) {
+		    this.getLogger().warning("Failed to connect to Plugin Metrics");
+		}
+>>>>>>> Added seperate classes/package for listeners.
 
 	}
 
 	@Override
-	public void onDisable() {
-	}
-
-	/** Drop listener inner-class. */
-	class DropsDisable implements Listener {
-
-		@EventHandler
-		public void onBlockDrop(PlayerDropItemEvent event) {
-			if (!event.getPlayer().hasPermission("jnodrops.candrop")
-					&& !event.isCancelled()) {
-				event.setCancelled(true);
-				event.getPlayer().sendMessage(
-						ChatColor.RED + "[NoDrops] " + ChatColor.GRAY
-								+ "You must not share items!");
-			}
-		}
-
-		@EventHandler
-		public void onDeath(PlayerDeathEvent event) {
-			if (!event.getEntity().hasPermission("jnodrops.dropondeath")) {
-				event.getDrops().clear();
-			}
-		}
-
-	}
+	public void onDisable() {}
 
 }
 
