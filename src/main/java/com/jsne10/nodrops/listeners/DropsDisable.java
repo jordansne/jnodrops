@@ -22,16 +22,27 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
+import com.jsne10.nodrops.NoDrops;
+
 public class DropsDisable implements Listener {
 
 	@EventHandler
 	public void onBlockDrop(PlayerDropItemEvent event) {
-		if (!event.getPlayer().hasPermission("jnodrops.candrop") && !event.getPlayer().hasPermission("jnodrops.candrop." + event.getPlayer().getWorld().getName())) {
-				event.setCancelled(true);
-				event.getPlayer().sendMessage(ChatColor.RED + "[NoDrops] " + ChatColor.GRAY + "You must not share items!");
-				return;
+		
+		String message = NoDrops.plugin.getConfig().getString("messageOnDrop");
+		message = ChatColor.translateAlternateColorCodes('&', message);
+		
+		if (!event.getPlayer().hasPermission("jnodrops.candrop")) {
 			
+			if (!event.getPlayer().hasPermission("jnodrops.candrop." + event.getPlayer().getWorld().getName())) {
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(message);
+				return;
+			}
+			
+			return;
 		}
+
 	}
 	
 }

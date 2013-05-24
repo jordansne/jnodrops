@@ -22,27 +22,25 @@ import com.jsne10.nodrops.util.Metrics;
 
 import java.io.IOException;
 
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class NoDrops extends JavaPlugin {
 	
 	public static NoDrops plugin;
 	
-	private Configuration config;
-	private FileConfiguration configFile;
+	public NoDrops() {
+		plugin = this;
+	}
 
 	@Override
 	public void onLoad() {
-		
-		plugin = this;
-		configFile = getConfig();
-		
 	}
 	
 	@Override
 	public void onEnable() {
+		
+		// Saves config file if not present.
+		this.saveDefaultConfig();
 
 		// Registers the Drop listener events.
 		this.getServer().getPluginManager().registerEvents(new DropsDisable(), this);
