@@ -17,27 +17,34 @@
 
 package com.jsne10.nodrops;
 
+import com.jsne10.nodrops.command.Admin;
 import com.jsne10.nodrops.listeners.*;
 import com.jsne10.nodrops.util.Metrics;
 
+import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class NoDrops extends JavaPlugin {
+public class Main extends JavaPlugin {
 	
-	public static NoDrops plugin;
+	public static Main plugin;
 	
-	public NoDrops() {
+	public Main() {
 		plugin = this;
-	}
-
-	@Override
-	public void onLoad() {
 	}
 	
 	@Override
 	public void onEnable() {
+		
+		//Checks to see if an old config is present, if so deletes it for new one.
+		File file = new File(this.getDataFolder(), "config.yml");
+		if (file.exists()) {
+			if (this.getConfig().getDouble("version") != Double.parseDouble(this.getDescription().getVersion())) {
+				file.delete();
+			}
+		}
 		
 		// Saves config file if not present.
 		this.saveDefaultConfig();
@@ -45,6 +52,10 @@ public class NoDrops extends JavaPlugin {
 		// Registers the Drop listener events.
 		this.getServer().getPluginManager().registerEvents(new DropsDisable(), this);
 		this.getServer().getPluginManager().registerEvents(new DropOnDeathDisable(), this);
+		this.getServer().getPluginManager().registerEvents(new PotionDisable(), this);
+		
+		// Admin commands.
+		this.getCommand("jnodrops").setExecutor(new Admin());
 		
 		// Plugin Metrics.
 		try {
@@ -59,6 +70,10 @@ public class NoDrops extends JavaPlugin {
 
 	@Override
 	public void onDisable() {}
+	
+	public static void loadConfig(Plugin pl) {
+		plugin.reloadConfig();
+	}
 
 }
 
