@@ -14,33 +14,26 @@ public class Admin implements CommandExecutor {
 		
 		// Help/no command
 		if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
-			String msg = "&c[jNoDrops] &7Usage: /jnodrops <reload/about>";
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+			sender.sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"Usage: /jnodrops <reload/about>");
 			return true;
 		}
 		
 		// Reload config command.
 		if (args[0].equalsIgnoreCase("reload")) {
-			Main.loadConfig(Main.plugin);
-			String msg = "&c[jNoDrops] &7Config Reloaded.";
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+			Main.loadConfig();
+			sender.sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"Config Reloaded.");
 			return true;
 		}
 		
 		// Gives a bit of background info about the plugin.
-		if (args[1].equalsIgnoreCase("about")) {
-			String msg;
-			
-			msg = "&c[jNoDrops] &7Version " + Main.plugin.getDescription().getVersion();
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
-			
-			msg = "&c[jNoDrops] &7A plugin by jsne10. Allows to block players from droppping various items.";
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+		if (args[0].equalsIgnoreCase("about")) {
+			sender.sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"Verion: " + Main.plugin.getDescription().getVersion());
+			sender.sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"A plugin by jsne10. Allows to block players from droppping various items.");
 			return true;
 		}
 		
 		// If none of the commands are entered.
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c[jNoDrops] &7Usage: /jnodrops <reload/about>"));
+		sender.sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"Usage: /jnodrops <reload/about>");
 		return true;
 		
 	}
