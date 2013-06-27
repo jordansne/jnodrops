@@ -1,1 +1,6 @@
-messageOnDrop: "&c [jNoDrops] &7You aren't allowed to drop items."
+#CONFIG VERSION, WILL ERASE YOUR CONFIG IF YOU ALTER.
+version: 1.5
+
+#Messages to set for when denying dropping.
+dropDenyMessage: "&c [jNoDrops] &7You aren't allowed to drop items."
+potionDenyMessage: "&c [jNoDrops] &7You aren't allowed to use potions."
