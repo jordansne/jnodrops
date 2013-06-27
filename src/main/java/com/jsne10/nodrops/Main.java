@@ -21,10 +21,13 @@ import com.jsne10.nodrops.command.Admin;
 import com.jsne10.nodrops.listeners.*;
 import com.jsne10.nodrops.util.Metrics;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -38,21 +41,15 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		
-		//Checks to see if an old config is present, if so deletes it for new one.
-		File file = new File(this.getDataFolder(), "config.yml");
-		if (file.exists()) {
-			if (this.getConfig().getDouble("version") != Double.parseDouble(this.getDescription().getVersion())) {
-				file.delete();
-			}
-		}
-		
-		// Saves config file if not present.
-		this.saveDefaultConfig();
+		loadConfig();
 
 		// Registers the Drop listener events.
 		this.getServer().getPluginManager().registerEvents(new DropsDisable(), this);
 		this.getServer().getPluginManager().registerEvents(new DropOnDeathDisable(), this);
 		this.getServer().getPluginManager().registerEvents(new PotionDisable(), this);
+		
+		//Check if a new version of the plugin is available
+		this.checkForUpdate();
 		
 		// Admin commands.
 		this.getCommand("jnodrops").setExecutor(new Admin());
@@ -71,9 +68,38 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {}
 	
-	public static void loadConfig(Plugin pl) {
+	public static void loadConfig() {
+		
+		//Checks to see if an old config is present, if so deletes it for new one.
+		File file = new File(plugin.getDataFolder(), "config.yml");
+		if (file.exists()) {
+			if (!plugin.getConfig().getString("version").equals(plugin.getDescription().getVersion())) {
+				file.delete();
+			}
+		}
+		
+		plugin.saveDefaultConfig();
 		plugin.reloadConfig();
 	}
-
+	
+	private void checkForUpdate() {
+		try {
+			URL url = new URL("https://raw.github.com/jsne10/jNoDrops/master/lastestversion");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+			
+			if (!reader.readLine().equalsIgnoreCase(this.getDescription().getVersion())) {
+				this.getServer().getPluginManager().registerEvents(new UpdateAlert(), this);
+				this.getLogger().info("A new version of jNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+			}
+			
+			reader.close();
+		} catch (MalformedURLException e) {
+			this.getLogger().warning("Unable to check for updates.");
+		} catch (IOException e) {
+			this.getLogger().warning("Unable to check for updates.");
+			e.printStackTrace();
+		}
+	}
+	
 }
 
