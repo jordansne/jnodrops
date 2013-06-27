@@ -1,6 +1,6 @@
 name: jNoDrops
 author: jsne10
-version: 1.5
+version: 1.4
 description: Simple bukkit anti-drop system.
 website: http://dev.bukkit.org/server-mods/jnodrops/
 
@@ -16,6 +16,7 @@ permissions:
       jnodrops.candropitem: true
       jnodrops.candroppotion: true
       jnodrops.dropondeath: true
+      jnodrops.admin: true
   jnodrops.candropitem:
     default: op
     description: Allows players to drop item normally. 

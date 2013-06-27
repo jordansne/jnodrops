@@ -1,5 +1,5 @@
 #CONFIG VERSION, WILL ERASE YOUR CONFIG IF YOU ALTER.
-version: 1.5
+version: 1.4
 
 #Messages to set for when denying dropping.
 dropDenyMessage: "&c [jNoDrops] &7You aren't allowed to drop items."

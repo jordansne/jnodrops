@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.jsne10</groupId>
   <artifactId>jNoDrops</artifactId>
-  <version>1.5</version>
+  <version>1.4</version>
   <name>jNoDrops</name>
   <description>Simple bukkit anti-drop system.</description>
 </project>
