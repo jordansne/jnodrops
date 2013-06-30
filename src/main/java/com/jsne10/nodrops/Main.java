@@ -18,7 +18,7 @@
 package com.jsne10.nodrops;
 
 import com.jsne10.nodrops.command.Admin;
-import com.jsne10.nodrops.listeners.*;
+import com.jsne10.nodrops.event.*;
 import com.jsne10.nodrops.util.Metrics;
 
 import java.io.BufferedReader;
@@ -41,6 +41,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		
+		// Load the config.
 		loadConfig();
 
 		// Registers the Drop listener events.
@@ -48,10 +49,7 @@ public class Main extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new DropOnDeathDisable(), this);
 		this.getServer().getPluginManager().registerEvents(new PotionDisable(), this);
 		
-		//Check if a new version of the plugin is available
-		this.checkForUpdate();
-		
-		// Admin commands.
+		// Register admin commands.
 		this.getCommand("jnodrops").setExecutor(new Admin());
 		
 		// Plugin Metrics.
@@ -62,12 +60,18 @@ public class Main extends JavaPlugin {
 		} catch (IOException e) {
 		    this.getLogger().warning("Failed to hook to Plugin Metrics");
 		}
+		
+		//Check if a new version of the plugin is available
+		if (this.getConfig().getBoolean("checkForUpdates")) {
+			this.checkForUpdate();			
+		}
 
 	}
 
 	@Override
 	public void onDisable() {}
 	
+	//Called to the load/reload the config.
 	public static void loadConfig() {
 		
 		//Checks to see if an old config is present, if so deletes it for new one.
@@ -82,12 +86,13 @@ public class Main extends JavaPlugin {
 		plugin.reloadConfig();
 	}
 	
+	// Called to check for updates. If one is available, then register an alter listener and log it in the console.
 	private void checkForUpdate() {
 		try {
 			URL url = new URL("https://raw.github.com/jsne10/jNoDrops/master/lastestversion");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 			
-			if (!reader.readLine().equalsIgnoreCase(this.getDescription().getVersion())) {
+			if (!reader.readLine().equals(this.getDescription().getVersion())) {
 				this.getServer().getPluginManager().registerEvents(new UpdateAlert(), this);
 				this.getLogger().info("A new version of jNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
 			}
