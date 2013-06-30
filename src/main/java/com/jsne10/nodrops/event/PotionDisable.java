@@ -1,4 +1,4 @@
-package com.jsne10.nodrops.listeners;
+package com.jsne10.nodrops.event;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

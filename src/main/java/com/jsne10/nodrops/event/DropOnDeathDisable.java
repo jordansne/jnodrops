@@ -15,7 +15,7 @@
  * 
  */
 
-package com.jsne10.nodrops.listeners;
+package com.jsne10.nodrops.event;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
