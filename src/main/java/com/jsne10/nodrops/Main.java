@@ -71,10 +71,10 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {}
 	
-	//Called to the load/reload the config.
+	// Called to the load/reload the config.
 	public static void loadConfig() {
 		
-		//Checks to see if an old config is present, if so deletes it for new one.
+		// Checks to see if an old config is present, if so deletes it for new one.
 		File file = new File(plugin.getDataFolder(), "config.yml");
 		if (file.exists()) {
 			if (!plugin.getConfig().getString("version").equals(plugin.getDescription().getVersion())) {
