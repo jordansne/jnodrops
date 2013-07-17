@@ -35,7 +35,11 @@ public class DropsDisable implements Listener {
 		if (!event.getPlayer().hasPermission("jnodrops.candropitem") &&
 				!event.getPlayer().hasPermission("jnodrops.candropitem." + event.getPlayer().getWorld().getName())) {
 			event.setCancelled(true);
-			event.getPlayer().sendMessage(message);
+			
+			if (!message.equals("")) {
+				event.getPlayer().sendMessage(message);				
+			}
+			
 		}
 			
 

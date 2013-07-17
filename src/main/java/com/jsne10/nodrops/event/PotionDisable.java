@@ -40,7 +40,11 @@ public class PotionDisable implements Listener {
 
 				if ((mat == Material.POTION) || (mat == Material.EXP_BOTTLE)) {
 					event.setCancelled(true);
-					event.getPlayer().sendMessage(message);
+					
+					if (!message.equals("")) {
+						event.getPlayer().sendMessage(message);				
+					}
+					
 				}					
 			} catch (Exception e) {}
 		}
