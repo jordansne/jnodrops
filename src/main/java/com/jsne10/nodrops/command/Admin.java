@@ -22,9 +22,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import com.jsne10.nodrops.Main;
+import com.jsne10.nodrops.JNoDrops;
+import com.jsne10.nodrops.util.ConfigManager;
 
 public class Admin implements CommandExecutor {
+	
+	private JNoDrops plugin = JNoDrops.getPlugin();
+	private ConfigManager config = plugin.getConfigManager();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -37,14 +41,14 @@ public class Admin implements CommandExecutor {
 		
 		// Reload config command.
 		if (args[0].equalsIgnoreCase("reload")) {
-			Main.loadConfig();
+			config.reloadConfig();
 			sender.sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"Config Reloaded.");
 			return true;
 		}
 		
 		// Gives a bit of background info about the plugin.
 		if (args[0].equalsIgnoreCase("about")) {
-			sender.sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"Verion: " + Main.plugin.getDescription().getVersion());
+			sender.sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"Verion: " + plugin.getDescription().getVersion());
 			sender.sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"A plugin by jsne10. Allows to block players from droppping various items.");
 			return true;
 		}

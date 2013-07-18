@@ -23,14 +23,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import com.jsne10.nodrops.Main;
+import com.jsne10.nodrops.JNoDrops;
 
 public class PotionDisable implements Listener {
 
 	@EventHandler
 	public void onPotionDrop(PlayerInteractEvent event) {
 
-		String message = Main.plugin.getConfig().getString("potionDenyMessage");
+		String message = JNoDrops.getPlugin().getConfig().getString("potionDenyMessage");
 		message = ChatColor.translateAlternateColorCodes('&', message);
 
 		if (!event.getPlayer().hasPermission("jnodrops.candroppotion") &&
