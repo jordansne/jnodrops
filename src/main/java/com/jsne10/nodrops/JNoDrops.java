@@ -33,21 +33,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class JNoDrops extends JavaPlugin {
 
 	private static JNoDrops plugin;
-	
 	private ConfigManager configManager;
-	
-	public JNoDrops() {
-		plugin = this;
-		configManager = new ConfigManager();
-	}
 	
 	@Override
 	public void onEnable() {
+		
+		// Initialize objects
+		plugin = this;
+		configManager = new ConfigManager();
 
-		// Registers the Drop listener events.
+		// Registers the plugin events.
 		this.getServer().getPluginManager().registerEvents(new DropsDisable(), this);
-		this.getServer().getPluginManager().registerEvents(new DropOnDeathDisable(), this);
 		this.getServer().getPluginManager().registerEvents(new PotionDisable(), this);
+		this.getServer().getPluginManager().registerEvents(new PotionDrinkDespawner(), (this));
+		this.getServer().getPluginManager().registerEvents(new DropOnDeathDisable(), this);
 		
 		// Register admin commands.
 		this.getCommand("jnodrops").setExecutor(new Admin());

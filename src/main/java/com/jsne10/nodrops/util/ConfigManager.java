@@ -38,11 +38,8 @@ public class ConfigManager {
 	}
 	
 	public void loadConfig() {
-		
 		plugin.saveDefaultConfig();
-		plugin.reloadConfig();
 		this.checkIfOutdated();
-		
 	}
 	
 	public void reloadConfig() {

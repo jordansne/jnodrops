@@ -1,10 +1,10 @@
-name: jNoDrops
+name: JNoDrops
 author: jsne10
 version: 1.5
 description: Simple bukkit anti-drop system.
 website: http://dev.bukkit.org/server-mods/jnodrops/
 
-main: com.jsne10.nodrops.Main
+main: com.jsne10.nodrops.JNoDrops
 commands:
   jnodrops:
     description: Administrative commands for jNoDrops.
@@ -26,6 +26,9 @@ permissions:
   jnodrops.dropondeath:
     default: op
     description: Players will drop their inventory upon death.
+  jnodrops.savepotionbottle:
+    default: op
+    description: Players will keep or destory their bottles after drinking.
   jnodrops.admin:
     default: op
     description: Allows admin commands to manage the plugin. 
