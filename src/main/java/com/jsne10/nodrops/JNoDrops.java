@@ -60,7 +60,7 @@ public class JNoDrops extends JavaPlugin {
 		    this.getLogger().warning("Failed to hook to Plugin Metrics");
 		}
 		
-		//Check if a new version of the plugin is available
+		// Check for updates..
 		this.checkForUpdate();
 
 	}
@@ -73,17 +73,12 @@ public class JNoDrops extends JavaPlugin {
 		
 		if (this.getConfig().getBoolean("checkForUpdates")) {
 			try {
-				URL url = new URL(
-						"https://raw.github.com/jsne10/jNoDrops/master/lastestversion");
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(url.openStream()));
+				URL url = new URL("https://raw.github.com/jsne10/jNoDrops/master/lastestversion");
+				BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
-				if (!reader.readLine().equals(
-						this.getDescription().getVersion())) {
-					this.getServer().getPluginManager()
-							.registerEvents(new UpdateAlert(), this);
-					this.getLogger()
-							.info("A new version of jNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+				if (!reader.readLine().equals(this.getDescription().getVersion())) {
+					this.getServer().getPluginManager().registerEvents(new UpdateAlert(), this);
+					this.getLogger().info("A new version of jNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
 				}
 
 				reader.close();
@@ -91,7 +86,6 @@ public class JNoDrops extends JavaPlugin {
 				this.getLogger().warning("Unable to check for updates.");
 			} catch (IOException e) {
 				this.getLogger().warning("Unable to check for updates.");
-				e.printStackTrace();
 			}
 		}
 		

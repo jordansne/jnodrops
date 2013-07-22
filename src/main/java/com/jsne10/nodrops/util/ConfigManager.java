@@ -17,6 +17,8 @@
 
 package com.jsne10.nodrops.util;
 
+import java.io.File;
+
 import com.jsne10.nodrops.JNoDrops;
 
 public class ConfigManager {
@@ -27,23 +29,40 @@ public class ConfigManager {
 		this.loadConfig();
 	}
 	
+	/**
+	 * Loads the config into memory for settings.
+	 */
+	public void loadConfig() {
+		File config = new File(plugin.getDataFolder(), "config.yml");
+		
+		if (!config.exists()) {
+			plugin.saveDefaultConfig();			
+		} else {
+			this.checkIfOutdated();
+		}
+	}
+	
+	/**
+	 * Called to refresh config settings.
+	 */
+	public void reloadConfig() {
+		plugin.reloadConfig();	
+	}
+	
+	/**
+	 * Checks if the current version is outdated and if so, updates it.
+	 */
 	public void checkIfOutdated() {
 		if (!plugin.getConfig().getString("version").equals(plugin.getDescription().getVersion())) {
 			this.update();
 		}
 	}
 	
+	/**
+	 * Updates config. WIP
+	 */
 	private void update() {
 		plugin.getConfig().options().copyDefaults();
-	}
-	
-	public void loadConfig() {
-		plugin.saveDefaultConfig();
-		this.checkIfOutdated();
-	}
-	
-	public void reloadConfig() {
-		plugin.reloadConfig();	
 	}
 
 }
