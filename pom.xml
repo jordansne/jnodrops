@@ -3,6 +3,6 @@
   <groupId>com.jsne10</groupId>
   <artifactId>JNoDrops</artifactId>
   <version>1.5</version>
-  <name>jNoDrops</name>
+  <name>JNoDrops</name>
   <description>Simple bukkit anti-drop system.</description>
 </project>

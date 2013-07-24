@@ -27,8 +27,8 @@ public class UpdateAlert implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		if (event.getPlayer().hasPermission("jnodrops.admin")) {
-			event.getPlayer().sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"A new version of jNoDrops is available!");
-			event.getPlayer().sendMessage(ChatColor.RED + "[jNoDrops] " + ChatColor.GRAY +"http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"A new version of jNoDrops is available!");
+			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"http://dev.bukkit.org/bukkit-plugins/jnodrops/");
 		}
 	}
 
