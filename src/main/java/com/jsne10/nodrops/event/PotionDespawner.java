@@ -23,7 +23,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
-public class PotionDrinkDespawner implements Listener {
+public class PotionDespawner implements Listener {
 	
 	@EventHandler
 	public void onPotionDrop(PlayerItemConsumeEvent event) {
