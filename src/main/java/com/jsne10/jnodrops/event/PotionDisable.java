@@ -15,7 +15,7 @@
  * 
  */
 
-package com.jsne10.nodrops.event;
+package com.jsne10.jnodrops.event;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,7 +23,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import com.jsne10.nodrops.JNoDrops;
+import com.jsne10.jnodrops.JNoDrops;
 
 public class PotionDisable implements Listener {
 

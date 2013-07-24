@@ -15,11 +15,11 @@
  * 
  */
 
-package com.jsne10.nodrops.util;
+package com.jsne10.jnodrops.util;
 
 import java.io.File;
 
-import com.jsne10.nodrops.JNoDrops;
+import com.jsne10.jnodrops.JNoDrops;
 
 public class ConfigManager {
 	

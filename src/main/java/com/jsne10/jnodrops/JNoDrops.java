@@ -15,12 +15,12 @@
  * 
  */
 
-package com.jsne10.nodrops;
+package com.jsne10.jnodrops;
 
-import com.jsne10.nodrops.command.Admin;
-import com.jsne10.nodrops.event.*;
-import com.jsne10.nodrops.util.ConfigManager;
-import com.jsne10.nodrops.util.Metrics;
+import com.jsne10.jnodrops.command.Admin;
+import com.jsne10.jnodrops.event.*;
+import com.jsne10.jnodrops.util.ConfigManager;
+import com.jsne10.jnodrops.util.Metrics;
 
 import java.io.BufferedReader;
 import java.io.IOException;

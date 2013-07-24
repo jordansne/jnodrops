@@ -15,15 +15,15 @@
  * 
  */
 
-package com.jsne10.nodrops.command;
+package com.jsne10.jnodrops.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import com.jsne10.nodrops.JNoDrops;
-import com.jsne10.nodrops.util.ConfigManager;
+import com.jsne10.jnodrops.JNoDrops;
+import com.jsne10.jnodrops.util.ConfigManager;
 
 public class Admin implements CommandExecutor {
 	
