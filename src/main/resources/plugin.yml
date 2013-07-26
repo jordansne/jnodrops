@@ -4,7 +4,7 @@ version: 1.5
 description: Simple bukkit anti-drop system.
 website: http://dev.bukkit.org/server-mods/jnodrops/
 
-main: com.jsne10.nodrops.JNoDrops
+main: com.jsne10.jnodrops.JNoDrops
 commands:
   jnodrops:
     description: Administrative commands for jNoDrops.
@@ -14,15 +14,20 @@ permissions:
   jnodrops.*:
     children:
       jnodrops.candropitem: true
-      jnodrops.candroppotion: true
+      jnodrops.getitemback: true
+      jnodrops.canusepotion: true
       jnodrops.dropondeath: true
+      jnodrops.savepotionbottle: true
       jnodrops.admin: true
   jnodrops.candropitem:
     default: op
-    description: Allows players to drop item normally. 
-  jnodrops.candroppotion:
+    description: Allows players to drop item normally.
+  jnodrops.getitemback:
     default: op
-    description: Allows players to throw potions.
+    description: Allows players to keep the items that are blocked from dropping.
+  jnodrops.canusepotion:
+    default: op
+    description: Allows players to throw/use potions.
   jnodrops.dropondeath:
     default: op
     description: Players will drop their inventory upon death.
