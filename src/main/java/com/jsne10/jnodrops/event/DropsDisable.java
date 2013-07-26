@@ -18,6 +18,7 @@
 package com.jsne10.jnodrops.event;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -25,23 +26,40 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import com.jsne10.jnodrops.JNoDrops;
 
 public class DropsDisable implements Listener {
+	
+	private JNoDrops plugin = JNoDrops.getPlugin();
 
 	@EventHandler
 	/** Event trigger to block normal item drops. */
 	public void onBlockDrop(PlayerDropItemEvent event) {
 		
-		String message = JNoDrops.getPlugin().getConfig().getString("dropDenyMessage");
-		message = ChatColor.translateAlternateColorCodes('&', message);
-		
 		if (!event.getPlayer().hasPermission("jnodrops.candropitem") &&
 				!event.getPlayer().hasPermission("jnodrops.candropitem." + event.getPlayer().getWorld().getName())) {
-			event.setCancelled(true);
-			if (!message.equals("")) {
-				event.getPlayer().sendMessage(message);				
+			
+			// If the player shouldn't get item back, then clear the drop stack.
+			if (!event.getPlayer().hasPermission("jnodrops.getitemback") &&
+					!event.getPlayer().hasPermission("jnodrops.getitemback." + event.getPlayer().getWorld().getName())) {
+				event.getItemDrop().remove();
+			} else {
+				event.setCancelled(true);				
 			}
+			
+			this.sendAlert(event.getPlayer());
 		}
 		
 	}
 	
 	/** Sends the chosen message (from config) to the player. */
+	public void sendAlert(Player player) {
+		String message;
+		
+		// Get the message and colourize it.
+		message = plugin.getConfig().getString("dropDenyMessage");
+		message = ChatColor.translateAlternateColorCodes('&', message);
+		
+		if (!message.equals("")) {
+			player.sendMessage(message);				
+		}
+	}
+	
 }

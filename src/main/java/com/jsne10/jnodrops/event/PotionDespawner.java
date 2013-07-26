@@ -29,8 +29,8 @@ public class PotionDespawner implements Listener {
 	/** Event triggered to remove the empty bottles after use. */
 	public void onPotionDrop(PlayerItemConsumeEvent event) {
 
-		if (!event.getPlayer().hasPermission("jnodrops.savePotionBottle") &&
-				!event.getPlayer().hasPermission("jnodrops.savePotionBottle." + event.getPlayer().getWorld().getName())) {
+		if (!event.getPlayer().hasPermission("jnodrops.savepotionbottle") &&
+				!event.getPlayer().hasPermission("jnodrops.savepotionbottle." + event.getPlayer().getWorld().getName())) {
 			try {
 				Material mat = event.getItem().getType();
 
@@ -55,7 +55,7 @@ public class PotionDespawner implements Listener {
 		@Override
 		public void run() {
 			try {
-				sleep(300);
+				sleep(100);
 				
 				if (player.getItemInHand().getType() == Material.GLASS_BOTTLE) {
 					player.setItemInHand(null);

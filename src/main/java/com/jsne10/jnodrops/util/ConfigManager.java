@@ -20,10 +20,12 @@ package com.jsne10.jnodrops.util;
 import java.io.File;
 
 import com.jsne10.jnodrops.JNoDrops;
+import com.jsne10.jnodrops.event.ConfigAlert;
 
 public class ConfigManager {
 	
 	private JNoDrops plugin = JNoDrops.getPlugin();
+	private static String CONFIG_VERSION = "2";
 	
 	public ConfigManager() {
 		this.loadConfig();
@@ -42,19 +44,20 @@ public class ConfigManager {
 	
 	/** Called to refresh config settings. */
 	public void reloadConfig() {
-		plugin.reloadConfig();	
+		this.loadConfig();
+		plugin.reloadConfig();
 	}
 	
 	/** Checks if the current version is outdated and if so, updates it. */
 	public void checkIfOutdated() {
-		if (!plugin.getConfig().getString("version").equals(plugin.getDescription().getVersion())) {
+		if (!plugin.getConfig().getString("version").equals(CONFIG_VERSION)) {
 			this.update();
 		}
 	}
 	
 	/** Updates config. (WIP) */
 	private void update() {
-		plugin.getConfig().options().copyDefaults();
+		plugin.getServer().getPluginManager().registerEvents(new ConfigAlert(), plugin);
 	}
 
 }

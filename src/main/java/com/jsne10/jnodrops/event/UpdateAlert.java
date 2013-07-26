@@ -28,8 +28,8 @@ public class UpdateAlert implements Listener {
 	/** Event triggered when an admin joins to alert them of a new version of the plugin. */
 	public void onJoin(PlayerJoinEvent event) {
 		if (event.getPlayer().hasPermission("jnodrops.admin")) {
-			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"A new version of jNoDrops is available!");
-			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY + "A new version of jNoDrops is available!");
+			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY + "http://dev.bukkit.org/bukkit-plugins/jnodrops/");
 		}
 	}
 

@@ -34,8 +34,8 @@ public class PotionDisable implements Listener {
 		String message = JNoDrops.getPlugin().getConfig().getString("potionDenyMessage");
 		message = ChatColor.translateAlternateColorCodes('&', message);
 
-		if (!event.getPlayer().hasPermission("jnodrops.candroppotion") &&
-				!event.getPlayer().hasPermission("jnodrops.candroppotion." + event.getPlayer().getWorld().getName())) {
+		if (!event.getPlayer().hasPermission("jnodrops.canusepotion") &&
+				!event.getPlayer().hasPermission("jnodrops.canusepotion." + event.getPlayer().getWorld().getName())) {
 			try {
 				Material mat = event.getItem().getType();
 
