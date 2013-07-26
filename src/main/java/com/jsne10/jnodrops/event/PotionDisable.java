@@ -28,6 +28,7 @@ import com.jsne10.jnodrops.JNoDrops;
 public class PotionDisable implements Listener {
 
 	@EventHandler
+	/** Event triggered to block uses of potions. */
 	public void onPotionDrop(PlayerInteractEvent event) {
 
 		String message = JNoDrops.getPlugin().getConfig().getString("potionDenyMessage");

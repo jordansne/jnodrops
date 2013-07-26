@@ -26,6 +26,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 public class PotionDespawner implements Listener {
 	
 	@EventHandler
+	/** Event triggered to remove the empty bottles after use. */
 	public void onPotionDrop(PlayerItemConsumeEvent event) {
 
 		if (!event.getPlayer().hasPermission("jnodrops.savePotionBottle") &&

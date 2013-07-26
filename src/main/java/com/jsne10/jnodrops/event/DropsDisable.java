@@ -27,6 +27,7 @@ import com.jsne10.jnodrops.JNoDrops;
 public class DropsDisable implements Listener {
 
 	@EventHandler
+	/** Event trigger to block normal item drops. */
 	public void onBlockDrop(PlayerDropItemEvent event) {
 		
 		String message = JNoDrops.getPlugin().getConfig().getString("dropDenyMessage");
@@ -42,4 +43,5 @@ public class DropsDisable implements Listener {
 		
 	}
 	
+	/** Sends the chosen message (from config) to the player. */
 }

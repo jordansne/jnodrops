@@ -68,7 +68,7 @@ public class JNoDrops extends JavaPlugin {
 	@Override
 	public void onDisable() {}
 	
-	// Called to check for updates. If one is available, then register an alter listener and log it in the console.
+	/** Called to check for updates. If one is available, then register an alter listener and log it in the console. */
 	private void checkForUpdate() {
 		
 		if (this.getConfig().getBoolean("checkForUpdates")) {
@@ -91,10 +91,12 @@ public class JNoDrops extends JavaPlugin {
 		
 	}
 	
+	/** Plugin instance getter. */
 	public static JNoDrops getPlugin() {
 		return plugin;
 	}
-
+ 
+	/** Config Manager instance getter. */
 	public ConfigManager getConfigManager() {
 		return configManager;
 	}

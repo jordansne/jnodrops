@@ -29,9 +29,7 @@ public class ConfigManager {
 		this.loadConfig();
 	}
 	
-	/**
-	 * Loads the config into memory for settings.
-	 */
+	/** Loads the config into memory for settings. */
 	public void loadConfig() {
 		File config = new File(plugin.getDataFolder(), "config.yml");
 		
@@ -42,25 +40,19 @@ public class ConfigManager {
 		}
 	}
 	
-	/**
-	 * Called to refresh config settings.
-	 */
+	/** Called to refresh config settings. */
 	public void reloadConfig() {
 		plugin.reloadConfig();	
 	}
 	
-	/**
-	 * Checks if the current version is outdated and if so, updates it.
-	 */
+	/** Checks if the current version is outdated and if so, updates it. */
 	public void checkIfOutdated() {
 		if (!plugin.getConfig().getString("version").equals(plugin.getDescription().getVersion())) {
 			this.update();
 		}
 	}
 	
-	/**
-	 * Updates config. WIP
-	 */
+	/** Updates config. (WIP) */
 	private void update() {
 		plugin.getConfig().options().copyDefaults();
 	}

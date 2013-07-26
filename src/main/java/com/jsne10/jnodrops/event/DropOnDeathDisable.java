@@ -24,6 +24,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class DropOnDeathDisable implements Listener {
 
 	@EventHandler
+	/** Event triggered to block death drops. */
 	public void onDeath(PlayerDeathEvent event) {
 		if (!event.getEntity().hasPermission("jnodrops.dropondeath") && 
 				!event.getEntity().hasPermission("jnodrops.dropondeath." + event.getEntity().getWorld().getName())) {
