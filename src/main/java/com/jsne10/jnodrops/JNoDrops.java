@@ -78,7 +78,7 @@ public class JNoDrops extends JavaPlugin {
 
 				if (!reader.readLine().equals(this.getDescription().getVersion())) {
 					this.getServer().getPluginManager().registerEvents(new UpdateAlert(), this);
-					this.getLogger().info("A new version of jNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+					this.getLogger().info("A new version of JNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
 				}
 
 				reader.close();
