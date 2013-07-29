@@ -28,8 +28,8 @@ public class ConfigAlert implements Listener {
 	/** Event triggered when an admin joins to alert them to update their config file. */
 	public void onJoin(PlayerJoinEvent event) {
 		if (event.getPlayer().hasPermission("jnodrops.admin")) {
-			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"Please erase your old config.yml to allow new config to generate.");
-			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"(Save your old config to transfer old settings to new one!");
+			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"Erase your old config to allow new one to regenerate!");
+			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"(Save your old config to save old settings!)");
 		}
 	}
 	
