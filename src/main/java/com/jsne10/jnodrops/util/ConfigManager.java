@@ -25,7 +25,7 @@ import com.jsne10.jnodrops.event.ConfigAlert;
 public class ConfigManager {
 	
 	private JNoDrops plugin = JNoDrops.getPlugin();
-	private static String CONFIG_VERSION = "2";
+	private static String CONFIG_VERSION = "1";
 	
 	public ConfigManager() {
 		this.loadConfig();
