@@ -21,11 +21,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
 import com.jsne10.jnodrops.JNoDrops;
 
-public class DropsDisable implements Listener {
+public class DropsManager implements Listener {
 	
 	private JNoDrops plugin = JNoDrops.getPlugin();
 
@@ -49,14 +50,24 @@ public class DropsDisable implements Listener {
 		
 	}
 	
+	@EventHandler
+	/** Event triggered to block death drops. */
+	public void onDeath(PlayerDeathEvent event) {
+		if (!event.getEntity().hasPermission("jnodrops.dropondeath") && 
+				!event.getEntity().hasPermission("jnodrops.dropondeath." + event.getEntity().getWorld().getName())) {
+			event.getDrops().clear();
+		}
+	}
+	
 	/** Sends the chosen message (from config) to the player. */
-	public void sendAlert(Player player) {
+	private void sendAlert(Player player) {
 		String message;
 		
 		// Get the message and colourize it.
 		message = plugin.getConfig().getString("dropDenyMessage");
 		message = ChatColor.translateAlternateColorCodes('&', message);
 		
+		// If the message is not empty, send the message.
 		if (!message.equals("")) {
 			player.sendMessage(message);				
 		}

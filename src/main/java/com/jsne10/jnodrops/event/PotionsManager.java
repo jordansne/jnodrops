@@ -19,18 +19,19 @@ package com.jsne10.jnodrops.event;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 import com.jsne10.jnodrops.JNoDrops;
 
-public class PotionDisable implements Listener {
+public class PotionsManager implements Listener {
 
 	@EventHandler
 	/** Event triggered to block uses of potions. */
 	public void onPotionDrop(PlayerInteractEvent event) {
-
 		String message = JNoDrops.getPlugin().getConfig().getString("potionDenyMessage");
 		message = ChatColor.translateAlternateColorCodes('&', message);
 
@@ -51,6 +52,48 @@ public class PotionDisable implements Listener {
 		}
 
 	}
+	
+	@EventHandler
+	/** Event triggered to remove the empty bottles after use. */
+	public void onPotionDrop(PlayerItemConsumeEvent event) {
+
+		if (!event.getPlayer().hasPermission("jnodrops.savepotionbottle") &&
+				!event.getPlayer().hasPermission("jnodrops.savepotionbottle." + event.getPlayer().getWorld().getName())) {
+			try {
+				Material mat = event.getItem().getType();
+
+				if (mat == Material.POTION) {
+					new PotionThread(event.getPlayer()).start();
+				}
+				
+			} catch (Exception e) {}
+		}
+
+	}
+	
+	private class PotionThread extends Thread {
+		
+		private Player player;
+		
+		public PotionThread(Player player) {
+			super();
+			this.player = player;
+		}
+		
+		@Override
+		public void run() {
+			try {
+				sleep(100);
+				
+				if (player.getItemInHand().getType() == Material.GLASS_BOTTLE) {
+					player.setItemInHand(null);
+				}
+				
+			} catch (InterruptedException e) {}
+		}
+		
+	}
+
 
 }
 
