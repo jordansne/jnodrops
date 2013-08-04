@@ -22,8 +22,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import com.jsne10.jnodrops.JNoDrops;
 import com.jsne10.jnodrops.util.ConfigManager;
+import com.jsne10.jnodrops.JNoDrops;
 
 public class Admin implements CommandExecutor {
 	

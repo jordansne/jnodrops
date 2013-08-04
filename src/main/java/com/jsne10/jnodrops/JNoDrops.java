@@ -17,9 +17,9 @@
 
 package com.jsne10.jnodrops;
 
+import com.jsne10.jnodrops.util.ConfigManager;
 import com.jsne10.jnodrops.command.Admin;
 import com.jsne10.jnodrops.event.*;
-import com.jsne10.jnodrops.util.ConfigManager;
 import com.jsne10.jnodrops.util.Metrics;
 
 import java.io.BufferedReader;
@@ -43,21 +43,19 @@ public class JNoDrops extends JavaPlugin {
 		configManager = new ConfigManager();
 
 		// Registers the plugin events.
-		this.getServer().getPluginManager().registerEvents(new DropsDisable(), this);
-		this.getServer().getPluginManager().registerEvents(new PotionDisable(), this);
-		this.getServer().getPluginManager().registerEvents(new PotionDespawner(), (this));
-		this.getServer().getPluginManager().registerEvents(new DropOnDeathDisable(), this);
+		getServer().getPluginManager().registerEvents(new DropsManager(), this);
+		getServer().getPluginManager().registerEvents(new PotionsManager(), this);
 		
 		// Register admin commands.
-		this.getCommand("jnodrops").setExecutor(new Admin());
+		getCommand("jnodrops").setExecutor(new Admin());
 		
 		// Plugin Metrics.
 		try {
 		    Metrics metrics = new Metrics(this);
 		    metrics.start();
-		    this.getLogger().info("Successfully hooked to Plugin Metrics.");
+		    getLogger().info("Successfully hooked to Plugin Metrics.");
 		} catch (IOException e) {
-		    this.getLogger().warning("Failed to hook to Plugin Metrics");
+		    getLogger().warning("Failed to hook to Plugin Metrics");
 		}
 		
 		// Check for updates..
