@@ -34,8 +34,8 @@ public class DropsManager implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler
 	/** Event trigger to block normal item drops. */
+	@EventHandler
 	public void onBlockDrop(PlayerDropItemEvent event) {
 		
 		if (!event.getPlayer().hasPermission("jnodrops.candropitem") &&
@@ -54,8 +54,8 @@ public class DropsManager implements Listener {
 		
 	}
 	
-	@EventHandler
 	/** Event triggered to block death drops. */
+	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
 		if (!event.getEntity().hasPermission("jnodrops.dropondeath") && 
 				!event.getEntity().hasPermission("jnodrops.dropondeath." + event.getEntity().getWorld().getName())) {

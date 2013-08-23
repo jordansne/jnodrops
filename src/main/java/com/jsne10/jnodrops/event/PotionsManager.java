@@ -35,8 +35,8 @@ public class PotionsManager implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler
 	/** Event triggered to block uses of potions. */
+	@EventHandler
 	public void onPotionDrop(PlayerInteractEvent event) {
 		String message = plugin.getConfig().getString("potionDenyMessage");
 		message = ChatColor.translateAlternateColorCodes('&', message);
@@ -59,9 +59,9 @@ public class PotionsManager implements Listener {
 
 	}
 	
+	/** Event triggered to remove the empty bottle after use. */
 	@EventHandler
-	/** Event triggered to remove the empty bottles after use. */
-	public void onPotionDrop(PlayerItemConsumeEvent event) {
+	public void onPotionDrink(PlayerItemConsumeEvent event) {
 
 		if (!event.getPlayer().hasPermission("jnodrops.savepotionbottle") &&
 				!event.getPlayer().hasPermission("jnodrops.savepotionbottle." + event.getPlayer().getWorld().getName())) {
