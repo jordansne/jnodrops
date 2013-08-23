@@ -28,11 +28,17 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import com.jsne10.jnodrops.JNoDrops;
 
 public class PotionsManager implements Listener {
+	
+	private JNoDrops plugin;
+	
+	public PotionsManager(JNoDrops plugin) {
+		this.plugin = plugin;
+	}
 
 	@EventHandler
 	/** Event triggered to block uses of potions. */
 	public void onPotionDrop(PlayerInteractEvent event) {
-		String message = JNoDrops.getPlugin().getConfig().getString("potionDenyMessage");
+		String message = plugin.getConfig().getString("potionDenyMessage");
 		message = ChatColor.translateAlternateColorCodes('&', message);
 
 		if (!event.getPlayer().hasPermission("jnodrops.canusepotion") &&

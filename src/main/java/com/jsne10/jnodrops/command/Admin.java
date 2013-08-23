@@ -27,8 +27,12 @@ import com.jsne10.jnodrops.JNoDrops;
 
 public class Admin implements CommandExecutor {
 	
-	private JNoDrops plugin = JNoDrops.getPlugin();
+	private JNoDrops plugin;
 	private ConfigManager config = plugin.getConfigManager();
+	
+	public Admin(JNoDrops plugin) {
+		this.plugin = plugin;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

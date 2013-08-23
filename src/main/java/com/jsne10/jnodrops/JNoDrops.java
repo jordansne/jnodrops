@@ -32,22 +32,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class JNoDrops extends JavaPlugin {
 
-	private static JNoDrops plugin;
 	private ConfigManager configManager;
 	
 	@Override
 	public void onEnable() {
 		
 		// Initialize objects
-		plugin = this;
-		configManager = new ConfigManager();
+		configManager = new ConfigManager(this);
 
 		// Registers the plugin events.
-		getServer().getPluginManager().registerEvents(new DropsManager(), this);
-		getServer().getPluginManager().registerEvents(new PotionsManager(), this);
+		getServer().getPluginManager().registerEvents(new DropsManager(this), this);
+		getServer().getPluginManager().registerEvents(new PotionsManager(this), this);
 		
 		// Register admin commands.
-		getCommand("jnodrops").setExecutor(new Admin());
+		getCommand("jnodrops").setExecutor(new Admin(this));
 		
 		// Plugin Metrics.
 		try {
@@ -87,11 +85,6 @@ public class JNoDrops extends JavaPlugin {
 			}
 		}
 		
-	}
-	
-	/** Plugin instance getter. */
-	public static JNoDrops getPlugin() {
-		return plugin;
 	}
  
 	/** Config Manager instance getter. */

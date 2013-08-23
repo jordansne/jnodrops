@@ -24,11 +24,14 @@ import com.jsne10.jnodrops.event.ConfigAlert;
 
 public class ConfigManager {
 	
-	private JNoDrops plugin = JNoDrops.getPlugin();
+	private JNoDrops plugin;
+	
 	private static String CONFIG_VERSION = "1";
 	
-	public ConfigManager() {
+	public ConfigManager(JNoDrops plugin) {
 		this.loadConfig();
+		
+		this.plugin = plugin;
 	}
 	
 	/** Loads the config into memory for settings. */

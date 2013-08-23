@@ -28,7 +28,11 @@ import com.jsne10.jnodrops.JNoDrops;
 
 public class DropsManager implements Listener {
 	
-	private JNoDrops plugin = JNoDrops.getPlugin();
+	private JNoDrops plugin;
+	
+	public DropsManager(JNoDrops plugin) {
+		this.plugin = plugin;
+	}
 
 	@EventHandler
 	/** Event trigger to block normal item drops. */
