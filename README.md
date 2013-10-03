@@ -1,11 +1,11 @@
 JNoDrops
 ===========
 
-Description
+[==== Description ====]
 
 This is a simple plugin created for the intent of disabling certain groups to drop items to share, whether it be because of anti-lag, or you dont want people to share items.
 
-Features
+[==== Features ====]
 
 This lightweight plugin allows blocking of the following things:
 
@@ -18,25 +18,9 @@ For usablitlity we have:
 Per-world permissions
 Automatic update checking
 
-Permissions
+[==== Feedback & Support ====]
 
-Configuration
-
-Source Code
-
-MCStats
-
-Planned Features
-
-Disabling drops on death (Added in version 1.1)
-Per-world-permissions (Added in version 1.2)
-Adding custom messages/config file. (Added in version 1.3)
-Disabling potion throwing & use. (Added in verison 1.4)
-Saving inventories on death.
-
-Feedback & Support
-
-Have an opinion, review, etc about the plugin? Leave a comment below!
+Have an opinion, review, etc about the plugin? Leave a comment on the bukkitDev page!
 
 Feel free to make any contributions to my github repo!
 
