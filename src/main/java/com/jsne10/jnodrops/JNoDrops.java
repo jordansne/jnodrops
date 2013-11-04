@@ -38,8 +38,7 @@ public class JNoDrops extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		
-		// Initialize objects
+		// Initialize object.
 		configManager = new ConfigManager(this);
 		chatWrapper = new ChatWrapper();
 
@@ -48,7 +47,7 @@ public class JNoDrops extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PickupManager(), this);
 		getServer().getPluginManager().registerEvents(new PotionsManager(this), this);
 		
-		// Register admin commands.
+		// Register admin command.
 		getCommand("jnodrops").setExecutor(new Admin(this));
 		
 		// Plugin Metrics.
@@ -60,9 +59,8 @@ public class JNoDrops extends JavaPlugin {
 		    getLogger().warning("Failed to hook to Plugin Metrics");
 		}
 		
-		// Check for updates..
-		this.checkForUpdate();
-
+		// Check for updates.
+		checkForUpdate();
 	}
 
 	@Override
@@ -70,25 +68,23 @@ public class JNoDrops extends JavaPlugin {
 	
 	/** Called to check for updates. If one is available, then register an alter listener and log it in the console. */
 	private void checkForUpdate() {
-		
-		if (this.getConfig().getBoolean("checkForUpdates")) {
+		if (getConfig().getBoolean("checkForUpdates")) {
 			try {
 				URL url = new URL("https://raw.github.com/jsne10/jNoDrops/master/lastestversion");
 				BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
-				if (!reader.readLine().equals(this.getDescription().getVersion())) {
-					this.getServer().getPluginManager().registerEvents(new UpdateAlert(), this);
-					this.getLogger().info("A new version of JNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+				if (!reader.readLine().equals(getDescription().getVersion())) {
+					getServer().getPluginManager().registerEvents(new UpdateAlert(this), this);
+					getLogger().info("A new version of JNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
 				}
 
 				reader.close();
 			} catch (MalformedURLException e) {
-				this.getLogger().warning("Unable to check for updates.");
+				getLogger().warning("Unable to check for updates.");
 			} catch (IOException e) {
-				this.getLogger().warning("Unable to check for updates.");
+				getLogger().warning("Unable to check for updates.");
 			}
 		}
-		
 	}
  
 	/** Config Manager instance getter. */

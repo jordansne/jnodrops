@@ -37,8 +37,7 @@ public class Admin implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		// Help/no command
+		// Help or no command
 		if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
 			sender.sendMessage(chat.getPluginPrefix() + "Usage: /jnodrops <reload/about>");
 			return true;

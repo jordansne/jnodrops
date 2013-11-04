@@ -7,7 +7,7 @@ website: http://dev.bukkit.org/server-mods/jnodrops/
 main: com.jsne10.jnodrops.JNoDrops
 commands:
   jnodrops:
-    description: Administrative commands for jNoDrops.
+    description: Administrative commands for JNoDrops.
     permission: jnodrops.admin
     aliases: [jnd]
 permissions:
@@ -25,6 +25,7 @@ permissions:
     description: Allows players to drop items.
   jnodrops.canpickupitem:
     default: op
+    description: Allows players to pickup items.
   jnodrops.getitemback:
     default: op
     description: Allows players to keep the items that are blocked from dropping.

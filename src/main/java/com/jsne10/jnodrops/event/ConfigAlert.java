@@ -26,7 +26,6 @@ import com.jsne10.jnodrops.util.ChatWrapper;
 
 public class ConfigAlert implements Listener {
 	
-	@EventHandler
 	private ChatWrapper chat;
 	
 	public ConfigAlert(JNoDrops plugin) {
@@ -34,6 +33,7 @@ public class ConfigAlert implements Listener {
 	}
 	
 	/** Event triggered when an admin joins to alert them to update their config file. */
+	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		if (event.getPlayer().hasPermission("jnodrops.admin")) {
 			event.getPlayer().sendMessage(chat.getPluginPrefix() + "Erase your old config to allow new one to regenerate!");
