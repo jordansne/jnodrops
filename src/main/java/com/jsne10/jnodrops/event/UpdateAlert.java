@@ -17,19 +17,27 @@
 
 package com.jsne10.jnodrops.event;
 
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import com.jsne10.jnodrops.JNoDrops;
+import com.jsne10.jnodrops.util.ChatWrapper;
+
 public class UpdateAlert implements Listener {
+	
+	private ChatWrapper chat;
+	
+	public UpdateAlert(JNoDrops plugin) {
+		chat = plugin.getChatWrapper();
+	}
 	
 	/** Event triggered when an admin joins to alert them of a new version of the plugin. */
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		if (event.getPlayer().hasPermission("jnodrops.admin")) {
-			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY + "A new version of jNoDrops is available!");
-			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY + "http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+			event.getPlayer().sendMessage(chat.getPluginPrefix() + "A new version of JNoDrops is available!");
+			event.getPlayer().sendMessage(chat.getPluginPrefix() + "http://dev.bukkit.org/bukkit-plugins/jnodrops/");
 		}
 	}
 

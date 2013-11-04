@@ -17,19 +17,27 @@
 
 package com.jsne10.jnodrops.event;
 
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import com.jsne10.jnodrops.JNoDrops;
+import com.jsne10.jnodrops.util.ChatWrapper;
+
 public class ConfigAlert implements Listener {
 	
 	@EventHandler
+	private ChatWrapper chat;
+	
+	public ConfigAlert(JNoDrops plugin) {
+		chat = plugin.getChatWrapper();
+	}
+	
 	/** Event triggered when an admin joins to alert them to update their config file. */
 	public void onJoin(PlayerJoinEvent event) {
 		if (event.getPlayer().hasPermission("jnodrops.admin")) {
-			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"Erase your old config to allow new one to regenerate!");
-			event.getPlayer().sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"(Save your old config to save old settings!)");
+			event.getPlayer().sendMessage(chat.getPluginPrefix() + "Erase your old config to allow new one to regenerate!");
+			event.getPlayer().sendMessage(chat.getPluginPrefix() + "(Save your old config to save old settings!)");
 		}
 	}
 	

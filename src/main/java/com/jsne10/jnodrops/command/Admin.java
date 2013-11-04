@@ -17,11 +17,11 @@
 
 package com.jsne10.jnodrops.command;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import com.jsne10.jnodrops.util.ChatWrapper;
 import com.jsne10.jnodrops.util.ConfigManager;
 import com.jsne10.jnodrops.JNoDrops;
 
@@ -29,6 +29,7 @@ public class Admin implements CommandExecutor {
 	
 	private JNoDrops plugin;
 	private ConfigManager config = plugin.getConfigManager();
+	private ChatWrapper chat = plugin.getChatWrapper();
 	
 	public Admin(JNoDrops plugin) {
 		this.plugin = plugin;
@@ -39,26 +40,26 @@ public class Admin implements CommandExecutor {
 		
 		// Help/no command
 		if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
-			sender.sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"Usage: /jnodrops <reload/about>");
+			sender.sendMessage(chat.getPluginPrefix() + "Usage: /jnodrops <reload/about>");
 			return true;
 		}
 		
 		// Reload config command.
 		if (args[0].equalsIgnoreCase("reload")) {
 			config.reloadConfig();
-			sender.sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"Config Reloaded.");
+			sender.sendMessage(chat.getPluginPrefix() + "Config Reloaded.");
 			return true;
 		}
 		
 		// Gives a bit of background info about the plugin.
 		if (args[0].equalsIgnoreCase("about")) {
-			sender.sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"Verion: " + plugin.getDescription().getVersion());
-			sender.sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"A plugin by jsne10. " + plugin.getDescription().getDescription());
+			sender.sendMessage(chat.getPluginPrefix() + "Verion: " + plugin.getDescription().getVersion());
+			sender.sendMessage(chat.getPluginPrefix() + "A plugin by jsne10. " + plugin.getDescription().getDescription());
 			return true;
 		}
 		
 		// If none of the commands are entered.
-		sender.sendMessage(ChatColor.RED + "[JNoDrops] " + ChatColor.GRAY +"Usage: /jnodrops <reload/about>");
+		sender.sendMessage(chat.getPluginPrefixError() +"Usage: /jnodrops <reload/about>");
 		return true;
 		
 	}

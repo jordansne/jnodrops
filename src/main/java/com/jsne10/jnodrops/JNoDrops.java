@@ -17,6 +17,7 @@
 
 package com.jsne10.jnodrops;
 
+import com.jsne10.jnodrops.util.ChatWrapper;
 import com.jsne10.jnodrops.util.ConfigManager;
 import com.jsne10.jnodrops.command.Admin;
 import com.jsne10.jnodrops.event.*;
@@ -33,12 +34,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class JNoDrops extends JavaPlugin {
 
 	private ConfigManager configManager;
+	private ChatWrapper chatWrapper;
 	
 	@Override
 	public void onEnable() {
 		
 		// Initialize objects
 		configManager = new ConfigManager(this);
+		chatWrapper = new ChatWrapper();
 
 		// Registers the plugin events.
 		getServer().getPluginManager().registerEvents(new DropsManager(this), this);
@@ -90,6 +93,11 @@ public class JNoDrops extends JavaPlugin {
 	/** Config Manager instance getter. */
 	public ConfigManager getConfigManager() {
 		return configManager;
+	}
+	
+	/** Chat Wrapper instance getter. */
+	public ChatWrapper getChatWrapper() {
+		return chatWrapper;
 	}
 	
 }
