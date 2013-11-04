@@ -14,6 +14,7 @@ permissions:
   jnodrops.*:
     children:
       jnodrops.candropitem: true
+      jnodrops.canpickupitem: true
       jnodrops.getitemback: true
       jnodrops.canusepotion: true
       jnodrops.dropondeath: true
@@ -21,7 +22,9 @@ permissions:
       jnodrops.admin: true
   jnodrops.candropitem:
     default: op
-    description: Allows players to drop item normally.
+    description: Allows players to drop items.
+  jnodrops.canpickupitem:
+    default: op
   jnodrops.getitemback:
     default: op
     description: Allows players to keep the items that are blocked from dropping.
@@ -33,7 +36,7 @@ permissions:
     description: Players will drop their inventory upon death.
   jnodrops.savepotionbottle:
     default: op
-    description: Players will keep or destory their bottles after drinking.
+    description: Players will keep their bottles after drinking.
   jnodrops.admin:
     default: op
     description: Allows admin commands to manage the plugin. 

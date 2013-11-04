@@ -45,6 +45,7 @@ public class JNoDrops extends JavaPlugin {
 
 		// Registers the plugin events.
 		getServer().getPluginManager().registerEvents(new DropsManager(this), this);
+		getServer().getPluginManager().registerEvents(new PickupManager(), this);
 		getServer().getPluginManager().registerEvents(new PotionsManager(this), this);
 		
 		// Register admin commands.
