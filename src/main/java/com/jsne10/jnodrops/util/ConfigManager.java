@@ -60,7 +60,7 @@ public class ConfigManager {
 	
 	/** Updates config. (WIP) */
 	private void update() {
-		plugin.getServer().getPluginManager().registerEvents(new ConfigAlert(), plugin);
+		plugin.getServer().getPluginManager().registerEvents(new ConfigAlert(plugin), plugin);
 	}
 
 }
