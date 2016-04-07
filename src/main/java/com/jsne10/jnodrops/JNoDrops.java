@@ -26,19 +26,24 @@ import com.jsne10.jnodrops.util.Metrics;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class JNoDrops extends JavaPlugin {
 
+	private static JNoDrops instance;
+	
 	private ConfigManager configManager;
 	private ChatWrapper chatWrapper;
 	
 	@Override
 	public void onEnable() {
-		// Initialize object.
+		instance = this;
+		
 		configManager = new ConfigManager(this);
 		chatWrapper = new ChatWrapper();
 
@@ -54,39 +59,62 @@ public class JNoDrops extends JavaPlugin {
 		try {
 		    Metrics metrics = new Metrics(this);
 		    metrics.start();
+		    
 		    getLogger().info("Successfully hooked to Plugin Metrics.");
 		} catch (IOException e) {
 		    getLogger().warning("Failed to hook to Plugin Metrics");
 		}
 		
-		// Check for updates.
-		checkForUpdate();
+		try {
+			checkForUpdate();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void onDisable() {}
 	
-	/** Called to check for updates. If one is available, then register an alter listener and log it in the console. */
-	private void checkForUpdate() {
-		if (getConfig().getBoolean("checkForUpdates")) {
-			try {
-				URL url = new URL("https://raw.github.com/jsne10/jNoDrops/master/lastestversion");
-				BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	/** Called to check for updates. If one is available, then register an alter listener and log it in the console. 
+	 * @throws IOException */
+	private void checkForUpdate() throws IOException {
+		if (!getConfig().getBoolean("checkForUpdates")) {
+			return;
+		}
+		
+		BufferedReader reader = null;
+		
+		try {
+			URL url = new URL("https://raw.github.com/jordansne/JNoDrops/master/lastestversion");
+			reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
-				if (!reader.readLine().equals(getDescription().getVersion())) {
-					getServer().getPluginManager().registerEvents(new UpdateAlert(this), this);
-					getLogger().info("A new version of JNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
-				}
-
-				reader.close();
-			} catch (MalformedURLException e) {
-				getLogger().warning("Unable to check for updates.");
-			} catch (IOException e) {
-				getLogger().warning("Unable to check for updates.");
+			if (!reader.readLine().equals(getDescription().getVersion())) {
+				getServer().getPluginManager().registerEvents(new Listener() {
+					@EventHandler
+					public void onJoin(PlayerJoinEvent event) {
+						if (event.getPlayer().hasPermission("jnodrops.admin")) {
+							event.getPlayer().sendMessage(instance.getChatWrapper().getPluginPrefix() + "A new version of JNoDrops is available!");
+							event.getPlayer().sendMessage(instance.getChatWrapper().getPluginPrefix() + "http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+						}
+						
+					}
+				}, this);
+				
+				getLogger().info("A new version of JNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
 			}
+		} catch (IOException e) {
+			getLogger().warning("Unable to check for updates.");
+			e.printStackTrace();
+		} finally {
+			reader.close();
 		}
 	}
- 
+	
+	/** Plugin instance getter. */
+	public static JNoDrops getInstance() {
+		return instance;
+	}
+
 	/** Config Manager instance getter. */
 	public ConfigManager getConfigManager() {
 		return configManager;

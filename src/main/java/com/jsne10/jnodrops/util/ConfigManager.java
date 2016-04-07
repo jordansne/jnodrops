@@ -19,8 +19,11 @@ package com.jsne10.jnodrops.util;
 
 import java.io.File;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+
 import com.jsne10.jnodrops.JNoDrops;
-import com.jsne10.jnodrops.event.ConfigAlert;
 
 public class ConfigManager {
 	
@@ -50,17 +53,20 @@ public class ConfigManager {
 		this.loadConfig();
 		plugin.reloadConfig();
 	}
-	
+
 	/** Checks if the current version is outdated and if so, updates it. */
 	public void checkIfOutdated() {
 		if (!plugin.getConfig().getString("version").equals(CONFIG_VERSION)) {
-			this.update();
+			plugin.getServer().getPluginManager().registerEvents(new Listener() {
+				@EventHandler
+				public void onJoin(PlayerJoinEvent event) {
+					if (event.getPlayer().hasPermission("jnodrops.admin")) {
+						event.getPlayer().sendMessage(plugin.getChatWrapper().getPluginPrefix() + "Erase your old config to allow new one to regenerate!");
+						event.getPlayer().sendMessage(plugin.getChatWrapper().getPluginPrefix() + "(Save your old config to save old settings!)");
+					}
+				}
+			}, plugin);
 		}
-	}
-	
-	/** Updates config. (WIP) */
-	private void update() {
-		plugin.getServer().getPluginManager().registerEvents(new ConfigAlert(plugin), plugin);
 	}
 
 }
