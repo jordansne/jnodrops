@@ -91,8 +91,9 @@ public class PotionsManager implements Listener {
 			try {
 				sleep(100);
 				
-				if (player.getItemInHand().getType() == Material.GLASS_BOTTLE) {
-					player.setItemInHand(null);
+				if (player.getInventory().getItemInMainHand().getType() == Material.GLASS_BOTTLE) {
+					player.getInventory().setItemInMainHand(null);
+
 				}
 				
 			} catch (InterruptedException e) {}
