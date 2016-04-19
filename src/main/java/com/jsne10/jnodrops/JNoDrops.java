@@ -17,11 +17,13 @@
 
 package com.jsne10.jnodrops;
 
-import com.jsne10.jnodrops.util.ChatWrapper;
-import com.jsne10.jnodrops.util.ConfigManager;
 import com.jsne10.jnodrops.command.Admin;
-import com.jsne10.jnodrops.event.*;
+import com.jsne10.jnodrops.event.DropsManager;
+import com.jsne10.jnodrops.event.PickupManager;
+import com.jsne10.jnodrops.event.PotionsManager;
+import com.jsne10.jnodrops.util.ConfigManager;
 import com.jsne10.jnodrops.util.Metrics;
+import com.jsne10.jnodrops.util.ChatWrapper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -75,8 +77,7 @@ public class JNoDrops extends JavaPlugin {
 	@Override
 	public void onDisable() {}
 	
-	/** Called to check for updates. If one is available, then register an alter listener and log it in the console. 
-	 * @throws IOException */
+	/** Called to check for updates. If one is available, then register an alter listener and log it in the console. */
 	private void checkForUpdate() throws IOException {
 		if (!getConfig().getBoolean("checkForUpdates")) {
 			return;
@@ -92,15 +93,17 @@ public class JNoDrops extends JavaPlugin {
 				getServer().getPluginManager().registerEvents(new Listener() {
 					@EventHandler
 					public void onJoin(PlayerJoinEvent event) {
-						if (event.getPlayer().hasPermission("jnodrops.admin")) {
-							event.getPlayer().sendMessage(instance.getChatWrapper().getPluginPrefix() + "A new version of JNoDrops is available!");
-							event.getPlayer().sendMessage(instance.getChatWrapper().getPluginPrefix() + "http://dev.bukkit.org/bukkit-plugins/jnodrops/");
-						}
+                        if (event.getPlayer().hasPermission("jnodrops.admin")) {
+							event.getPlayer().sendMessage(instance.getChatWrapper().getPluginPrefix() +
+									"A new version of JNoDrops is available!");
+							event.getPlayer().sendMessage(instance.getChatWrapper().getPluginPrefix() +
+									"http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+                        }
 						
 					}
 				}, this);
 				
-				getLogger().info("A new version of JNoDrops is avialable! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
+				getLogger().info("A new version of JNoDrops is available! LINK: http://dev.bukkit.org/bukkit-plugins/jnodrops/");
 			}
 		} catch (IOException e) {
 			getLogger().warning("Unable to check for updates.");

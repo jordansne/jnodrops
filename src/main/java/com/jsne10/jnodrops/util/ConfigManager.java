@@ -19,11 +19,10 @@ package com.jsne10.jnodrops.util;
 
 import java.io.File;
 
+import com.jsne10.jnodrops.JNoDrops;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import com.jsne10.jnodrops.JNoDrops;
 
 public class ConfigManager {
 	
