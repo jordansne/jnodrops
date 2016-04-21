@@ -27,9 +27,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 public class PotionsManager implements Listener {
-	
+
 	private JNoDrops plugin;
-	
+
 	public PotionsManager(JNoDrops plugin) {
 		this.plugin = plugin;
 	}
@@ -47,17 +47,18 @@ public class PotionsManager implements Listener {
 
 				if ((mat == Material.POTION) || (mat == Material.EXP_BOTTLE)) {
 					event.setCancelled(true);
-					
+
 					if (!message.equals("")) {
-						event.getPlayer().sendMessage(message);				
+						event.getPlayer().sendMessage(message);
 					}
-					
-				}					
-			} catch (Exception e) {}
+
+				}
+			} catch (Exception e) {
+			}
 		}
 
 	}
-	
+
 	/** Event triggered to remove the empty bottle after use. */
 	@EventHandler
 	public void onPotionDrink(PlayerItemConsumeEvent event) {
@@ -70,34 +71,36 @@ public class PotionsManager implements Listener {
 				if (mat == Material.POTION) {
 					new PotionThread(event.getPlayer()).start();
 				}
-				
-			} catch (Exception e) {}
+
+			} catch (Exception e) {
+			}
 		}
 
 	}
-	
+
 	private class PotionThread extends Thread {
-		
+
 		private Player player;
-		
+
 		public PotionThread(Player player) {
 			super();
 			this.player = player;
 		}
-		
+
 		@Override
 		public void run() {
 			try {
 				sleep(100);
-				
+
 				if (player.getInventory().getItemInMainHand().getType() == Material.GLASS_BOTTLE) {
 					player.getInventory().setItemInMainHand(null);
 
 				}
-				
-			} catch (InterruptedException e) {}
+
+			} catch (InterruptedException e) {
+			}
 		}
-		
+
 	}
 
 

@@ -25,28 +25,28 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class ConfigManager {
-	
+
 	private JNoDrops plugin;
-	
+
 	private static String CONFIG_VERSION = "1";
-	
+
 	public ConfigManager(JNoDrops plugin) {
 		this.loadConfig();
-		
+
 		this.plugin = plugin;
 	}
-	
+
 	/** Loads the config into memory for settings. */
 	public void loadConfig() {
 		File config = new File(plugin.getDataFolder(), "config.yml");
-		
+
 		if (!config.exists()) {
-			plugin.saveDefaultConfig();			
+			plugin.saveDefaultConfig();
 		} else {
 			this.checkIfOutdated();
 		}
 	}
-	
+
 	/** Called to refresh config settings. */
 	public void reloadConfig() {
 		this.loadConfig();

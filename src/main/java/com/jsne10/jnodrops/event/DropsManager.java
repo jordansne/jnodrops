@@ -26,9 +26,9 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class DropsManager implements Listener {
-	
+
 	private JNoDrops plugin;
-	
+
 	public DropsManager(JNoDrops plugin) {
 		this.plugin = plugin;
 	}
@@ -38,40 +38,40 @@ public class DropsManager implements Listener {
 	public void onBlockDrop(PlayerDropItemEvent event) {
 		if (!event.getPlayer().hasPermission("jnodrops.candropitem") &&
 				!event.getPlayer().hasPermission("jnodrops.candropitem." + event.getPlayer().getWorld().getName())) {
-			
+
 			// If the player shouldn't get item back, then clear the drop stack.
 			if (!event.getPlayer().hasPermission("jnodrops.getitemback") &&
 					!event.getPlayer().hasPermission("jnodrops.getitemback." + event.getPlayer().getWorld().getName())) {
 				event.getItemDrop().remove();
 			} else {
-				event.setCancelled(true);				
+				event.setCancelled(true);
 			}
-			
+
 			this.sendAlert(event.getPlayer());
 		}
 	}
-	
+
 	/** Event triggered to block death drops. */
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
-		if (!event.getEntity().hasPermission("jnodrops.dropondeath") && 
+		if (!event.getEntity().hasPermission("jnodrops.dropondeath") &&
 				!event.getEntity().hasPermission("jnodrops.dropondeath." + event.getEntity().getWorld().getName())) {
 			event.getDrops().clear();
 		}
 	}
-	
+
 	/** Sends the chosen message (from config) to the player. */
 	private void sendAlert(Player player) {
 		String message;
-		
+
 		// Get the message and colourize it.
 		message = plugin.getConfig().getString("dropDenyMessage");
 		message = ChatColor.translateAlternateColorCodes('&', message);
-		
+
 		// If the message is not empty, send the message.
 		if (!message.equals("")) {
-			player.sendMessage(message);				
+			player.sendMessage(message);
 		}
 	}
-	
+
 }

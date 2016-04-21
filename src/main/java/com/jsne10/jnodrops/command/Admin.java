@@ -26,11 +26,11 @@ import com.jsne10.jnodrops.util.ConfigManager;
 import com.jsne10.jnodrops.JNoDrops;
 
 public class Admin implements CommandExecutor {
-	
+
 	private JNoDrops plugin;
 	private ConfigManager config = plugin.getConfigManager();
 	private ChatWrapper chat = plugin.getChatWrapper();
-	
+
 	public Admin(JNoDrops plugin) {
 		this.plugin = plugin;
 	}
@@ -42,25 +42,25 @@ public class Admin implements CommandExecutor {
 			sender.sendMessage(chat.getPluginPrefix() + "Usage: /jnodrops <reload/about>");
 			return true;
 		}
-		
+
 		// Reload config command.
 		if (args[0].equalsIgnoreCase("reload")) {
 			config.reloadConfig();
 			sender.sendMessage(chat.getPluginPrefix() + "Config Reloaded.");
 			return true;
 		}
-		
+
 		// Gives a bit of background info about the plugin.
 		if (args[0].equalsIgnoreCase("about")) {
 			sender.sendMessage(chat.getPluginPrefix() + "Verion: " + plugin.getDescription().getVersion());
 			sender.sendMessage(chat.getPluginPrefix() + "A plugin by jsne10. " + plugin.getDescription().getDescription());
 			return true;
 		}
-		
+
 		// If none of the commands are entered.
-		sender.sendMessage(chat.getPluginPrefixError() +"Usage: /jnodrops <reload/about>");
+		sender.sendMessage(chat.getPluginPrefixError() + "Usage: /jnodrops <reload/about>");
 		return true;
-		
+
 	}
 
 }
