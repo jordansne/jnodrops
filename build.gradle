@@ -1,0 +1,29 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'java'
+}
+
+group 'com.jsne10'
+version '2.0.0'
+
+def bukkitVersion = '1.9-R0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots'
+    }
+}
+
+dependencies {
+    compileOnly (group: 'org.bukkit', name: 'bukkit', version: bukkitVersion)
+}
+
+processResources {
+    filter(ReplaceTokens, tokens: [ version: version ])
+}
