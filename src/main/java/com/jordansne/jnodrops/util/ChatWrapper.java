@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2016 jsne10.  All rights reserved.
+ * Copyright (C) 2013-2020 Jordan Sne.  All rights reserved.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,21 +15,18 @@
  * 
  */
 
-package com.jsne10.jnodrops.event;
+package com.jordansne.jnodrops.util;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.ChatColor;
 
-public class PickupManager implements Listener {
+public class ChatWrapper {
 
-	/** Event trigger to block normal item drops. */
-	@EventHandler
-	public void onBlockDrop(PlayerPickupItemEvent event) {
-		if (!event.getPlayer().hasPermission("jnodrops.canpickupitem") &&
-				!event.getPlayer().hasPermission("jnodrops.canpickupitem." + event.getPlayer().getWorld().getName())) {
-			event.setCancelled(true);
-		}
+	public String getPluginPrefix() {
+		return ChatColor.DARK_GRAY + "[" + ChatColor.RED + "JNoDrops" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY;
+	}
+
+	public String getPluginPrefixError() {
+		return ChatColor.DARK_GRAY + "[" + ChatColor.RED + "JNoDrops" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_RED;
 	}
 
 }

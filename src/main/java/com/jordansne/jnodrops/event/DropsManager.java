@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2016 jsne10.  All rights reserved.
+ * Copyright (C) 2013-2020 Jordan Sne.  All rights reserved.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,9 +15,9 @@
  * 
  */
 
-package com.jsne10.jnodrops.event;
+package com.jordansne.jnodrops.event;
 
-import com.jsne10.jnodrops.JNoDrops;
+import com.jordansne.jnodrops.JNoDrops;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

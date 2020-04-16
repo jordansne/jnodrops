@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2016 jsne10.  All rights reserved.
+ * Copyright (C) 2013-2020 Jordan Sne.  All rights reserved.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,11 +15,11 @@
  * 
  */
 
-package com.jsne10.jnodrops.util;
+package com.jordansne.jnodrops.util;
 
 import java.io.File;
 
-import com.jsne10.jnodrops.JNoDrops;
+import com.jordansne.jnodrops.JNoDrops;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -54,6 +54,7 @@ public class ConfigManager {
 
 	/** Checks if the current version is outdated and if so, updates it. */
 	public void checkIfOutdated() {
+		// TODO Check Github Releases
 		if (!plugin.getConfig().getString("version").equals(CONFIG_VERSION)) {
 			plugin.getServer().getPluginManager().registerEvents(new Listener() {
 				@EventHandler

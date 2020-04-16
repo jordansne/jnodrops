@@ -1,10 +1,10 @@
 name: JNoDrops
-author: jsne10
+author: Jordan Sne
 version: @version@
 description: Simple bukkit anti-drop system.
 website: http://dev.bukkit.org/server-mods/jnodrops/
 
-main: com.jsne10.jnodrops.JNoDrops
+main: com.jordansne.jnodrops.JNoDrops
 api-version: 1.13
 commands:
   jnodrops:

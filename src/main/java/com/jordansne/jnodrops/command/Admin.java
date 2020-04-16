@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2016 jsne10.  All rights reserved.
+ * Copyright (C) 2013-2020 Jordan Sne.  All rights reserved.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,15 +15,15 @@
  * 
  */
 
-package com.jsne10.jnodrops.command;
+package com.jordansne.jnodrops.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import com.jsne10.jnodrops.util.ChatWrapper;
-import com.jsne10.jnodrops.util.ConfigManager;
-import com.jsne10.jnodrops.JNoDrops;
+import com.jordansne.jnodrops.util.ChatWrapper;
+import com.jordansne.jnodrops.util.ConfigManager;
+import com.jordansne.jnodrops.JNoDrops;
 
 public class Admin implements CommandExecutor {
 
@@ -55,7 +55,7 @@ public class Admin implements CommandExecutor {
 		// Gives a bit of background info about the plugin.
 		if (args[0].equalsIgnoreCase("about")) {
 			sender.sendMessage(chat.getPluginPrefix() + "Verion: " + plugin.getDescription().getVersion());
-			sender.sendMessage(chat.getPluginPrefix() + "A plugin by jsne10. " + plugin.getDescription().getDescription());
+			sender.sendMessage(chat.getPluginPrefix() + "A plugin by Jordan Sne. " + plugin.getDescription().getDescription());
 			return true;
 		}
 

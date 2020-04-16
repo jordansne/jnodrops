@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2016 jsne10.  All rights reserved.
+ * Copyright (C) 2013-2020 Jordan Sne.  All rights reserved.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,15 +15,15 @@
  * 
  */
 
-package com.jsne10.jnodrops;
+package com.jordansne.jnodrops;
 
-import com.jsne10.jnodrops.command.Admin;
-import com.jsne10.jnodrops.event.DropsManager;
-import com.jsne10.jnodrops.event.PickupManager;
-import com.jsne10.jnodrops.event.PotionsManager;
-import com.jsne10.jnodrops.util.ConfigManager;
-import com.jsne10.jnodrops.util.Metrics;
-import com.jsne10.jnodrops.util.ChatWrapper;
+import com.jordansne.jnodrops.command.Admin;
+import com.jordansne.jnodrops.event.DropsManager;
+import com.jordansne.jnodrops.event.PickupManager;
+import com.jordansne.jnodrops.event.PotionsManager;
+import com.jordansne.jnodrops.util.ChatWrapper;
+import com.jordansne.jnodrops.util.ConfigManager;
+import com.jordansne.jnodrops.util.Metrics;
 
 import java.io.BufferedReader;
 import java.io.IOException;
