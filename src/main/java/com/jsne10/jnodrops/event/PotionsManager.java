@@ -45,7 +45,7 @@ public class PotionsManager implements Listener {
 			try {
 				Material mat = event.getItem().getType();
 
-				if ((mat == Material.POTION) || (mat == Material.EXP_BOTTLE)) {
+				if ((mat == Material.POTION) || (mat == Material.EXPERIENCE_BOTTLE)) {
 					event.setCancelled(true);
 
 					if (!message.equals("")) {

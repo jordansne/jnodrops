@@ -28,11 +28,13 @@ import com.jsne10.jnodrops.JNoDrops;
 public class Admin implements CommandExecutor {
 
 	private JNoDrops plugin;
-	private ConfigManager config = plugin.getConfigManager();
-	private ChatWrapper chat = plugin.getChatWrapper();
+	private ConfigManager config;
+	private ChatWrapper chat;
 
 	public Admin(JNoDrops plugin) {
 		this.plugin = plugin;
+		this.config = plugin.getConfigManager();
+		this.chat = plugin.getChatWrapper();
 	}
 
 	@Override

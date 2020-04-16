@@ -27,13 +27,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class ConfigManager {
 
 	private JNoDrops plugin;
-
 	private static String CONFIG_VERSION = "1";
 
 	public ConfigManager(JNoDrops plugin) {
-		this.loadConfig();
-
 		this.plugin = plugin;
+
+		this.loadConfig();
 	}
 
 	/** Loads the config into memory for settings. */
