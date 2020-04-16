@@ -27,51 +27,45 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class DropsManager implements Listener {
 
-	private JNoDrops plugin;
+    private JNoDrops plugin;
 
-	public DropsManager(JNoDrops plugin) {
-		this.plugin = plugin;
-	}
+    public DropsManager(JNoDrops plugin) {
+        this.plugin = plugin;
+    }
 
-	/** Event trigger to block normal item drops. */
-	@EventHandler
-	public void onBlockDrop(PlayerDropItemEvent event) {
-		if (!event.getPlayer().hasPermission("jnodrops.candropitem") &&
-				!event.getPlayer().hasPermission("jnodrops.candropitem." + event.getPlayer().getWorld().getName())) {
+    @EventHandler
+    public void onBlockDrop(PlayerDropItemEvent event) {
+        Player player = event.getPlayer();
+        String world = player.getWorld().getName();
 
-			// If the player shouldn't get item back, then clear the drop stack.
-			if (!event.getPlayer().hasPermission("jnodrops.getitemback") &&
-					!event.getPlayer().hasPermission("jnodrops.getitemback." + event.getPlayer().getWorld().getName())) {
-				event.getItemDrop().remove();
-			} else {
-				event.setCancelled(true);
-			}
+        if (!player.hasPermission("jnodrops.candropitem") && !player.hasPermission("jnodrops.candropitem." + world)) {
+            if (!player.hasPermission("jnodrops.getitemback") && !player.hasPermission("jnodrops.getitemback." + world)) {
+                event.getItemDrop().remove();
+            } else {
+                event.setCancelled(true);
+            }
 
-			this.sendAlert(event.getPlayer());
-		}
-	}
+            sendAlert(player);
+        }
+    }
 
-	/** Event triggered to block death drops. */
-	@EventHandler
-	public void onDeath(PlayerDeathEvent event) {
-		if (!event.getEntity().hasPermission("jnodrops.dropondeath") &&
-				!event.getEntity().hasPermission("jnodrops.dropondeath." + event.getEntity().getWorld().getName())) {
-			event.getDrops().clear();
-		}
-	}
+    @EventHandler
+    public void onDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+        String world = player.getWorld().getName();
 
-	/** Sends the chosen message (from config) to the player. */
-	private void sendAlert(Player player) {
-		String message;
+        if (!player.hasPermission("jnodrops.dropondeath") && !player.hasPermission("jnodrops.dropondeath." + world)) {
+            event.getDrops().clear();
+        }
+    }
 
-		// Get the message and colourize it.
-		message = plugin.getConfig().getString("dropDenyMessage");
-		message = ChatColor.translateAlternateColorCodes('&', message);
+    private void sendAlert(Player player) {
+        String rawMessage = plugin.getConfig().getString("dropDenyMessage");
 
-		// If the message is not empty, send the message.
-		if (!message.equals("")) {
-			player.sendMessage(message);
-		}
-	}
+        if (rawMessage != null && !rawMessage.equals("")) {
+            String message = ChatColor.translateAlternateColorCodes('&', rawMessage);
+            player.sendMessage(message);
+        }
+    }
 
 }

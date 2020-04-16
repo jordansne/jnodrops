@@ -19,14 +19,10 @@ package com.jordansne.jnodrops.util;
 
 import org.bukkit.ChatColor;
 
-public class ChatWrapper {
+public class ChatHelper {
+    public static final String PLUGIN_PREFIX
+            = ChatColor.DARK_GRAY + "[" + ChatColor.RED + "JNoDrops" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY;
 
-	public String getPluginPrefix() {
-		return ChatColor.DARK_GRAY + "[" + ChatColor.RED + "JNoDrops" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY;
-	}
-
-	public String getPluginPrefixError() {
-		return ChatColor.DARK_GRAY + "[" + ChatColor.RED + "JNoDrops" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_RED;
-	}
-
+    public static final String PLUGIN_PREFIX_ERROR
+            = ChatColor.DARK_GRAY + "[" + ChatColor.RED + "JNoDrops" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_RED;
 }

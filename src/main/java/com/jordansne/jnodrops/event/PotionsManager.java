@@ -23,86 +23,72 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 public class PotionsManager implements Listener {
 
-	private JNoDrops plugin;
+    private JNoDrops plugin;
 
-	public PotionsManager(JNoDrops plugin) {
-		this.plugin = plugin;
-	}
+    public PotionsManager(JNoDrops plugin) {
+        this.plugin = plugin;
+    }
 
-	/** Event triggered to block uses of potions. */
-	@EventHandler
-	public void onPotionDrop(PlayerInteractEvent event) {
-		String message = plugin.getConfig().getString("potionDenyMessage");
-		message = ChatColor.translateAlternateColorCodes('&', message);
+    @EventHandler
+    public void onPotionUse(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        String world = player.getWorld().getName();
 
-		if (!event.getPlayer().hasPermission("jnodrops.canusepotion") &&
-				!event.getPlayer().hasPermission("jnodrops.canusepotion." + event.getPlayer().getWorld().getName())) {
-			try {
-				Material mat = event.getItem().getType();
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getItem() != null) {
+            Material material = event.getItem().getType();
 
-				if ((mat == Material.POTION) || (mat == Material.EXPERIENCE_BOTTLE)) {
-					event.setCancelled(true);
+            if (material == Material.POTION && !player.hasPermission("jnodrops.canusepotion")
+                    && !player.hasPermission("jnodrops.canusepotion." + world)) {
+                event.setCancelled(true);
 
-					if (!message.equals("")) {
-						event.getPlayer().sendMessage(message);
-					}
+                String rawMessage = plugin.getConfig().getString("potionDenyMessage");
+                if (rawMessage != null && !rawMessage.equals("")) {
+                    String message = ChatColor.translateAlternateColorCodes('&', rawMessage);
+                    event.getPlayer().sendMessage(message);
+                }
+            }
+        }
+    }
 
-				}
-			} catch (Exception e) {
-			}
-		}
+    @EventHandler
+    public void onPotionDrink(PlayerItemConsumeEvent event) {
+        Player player = event.getPlayer();
+        String world = player.getWorld().getName();
 
-	}
+        if (!player.hasPermission("jnodrops.savepotionbottle")
+                && !player.hasPermission("jnodrops.savepotionbottle." + world)) {
+            Material material = event.getItem().getType();
 
-	/** Event triggered to remove the empty bottle after use. */
-	@EventHandler
-	public void onPotionDrink(PlayerItemConsumeEvent event) {
+            if (material == Material.POTION) {
+                new PotionThread(event.getPlayer()).start();
+            }
+        }
+    }
 
-		if (!event.getPlayer().hasPermission("jnodrops.savepotionbottle") &&
-				!event.getPlayer().hasPermission("jnodrops.savepotionbottle." + event.getPlayer().getWorld().getName())) {
-			try {
-				Material mat = event.getItem().getType();
+    private static class PotionThread extends Thread {
+        private Player player;
 
-				if (mat == Material.POTION) {
-					new PotionThread(event.getPlayer()).start();
-				}
+        public PotionThread(Player player) {
+            this.player = player;
+        }
 
-			} catch (Exception e) {
-			}
-		}
+        @Override
+        public void run() {
+            try {
+                sleep(100);
 
-	}
-
-	private class PotionThread extends Thread {
-
-		private Player player;
-
-		public PotionThread(Player player) {
-			super();
-			this.player = player;
-		}
-
-		@Override
-		public void run() {
-			try {
-				sleep(100);
-
-				if (player.getInventory().getItemInMainHand().getType() == Material.GLASS_BOTTLE) {
-					player.getInventory().setItemInMainHand(null);
-
-				}
-
-			} catch (InterruptedException e) {
-			}
-		}
-
-	}
-
+                if (player.getInventory().getItemInMainHand().getType() == Material.GLASS_BOTTLE) {
+                    player.getInventory().setItemInMainHand(null);
+                }
+            } catch (InterruptedException ignored) {}
+        }
+    }
 
 }
 

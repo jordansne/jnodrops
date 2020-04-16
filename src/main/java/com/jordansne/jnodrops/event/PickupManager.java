@@ -17,19 +17,23 @@
 
 package com.jordansne.jnodrops.event;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 
 public class PickupManager implements Listener {
 
-	/** Event trigger to block normal item drops. */
-	@EventHandler
-	public void onBlockDrop(PlayerPickupItemEvent event) {
-		if (!event.getPlayer().hasPermission("jnodrops.canpickupitem") &&
-				!event.getPlayer().hasPermission("jnodrops.canpickupitem." + event.getPlayer().getWorld().getName())) {
-			event.setCancelled(true);
-		}
-	}
+    @EventHandler
+    public void onBlockDrop(EntityPickupItemEvent event) {
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+            String world = player.getWorld().getName();
+
+            if (!player.hasPermission("jnodrops.canpickupitem") && !player.hasPermission("jnodrops.canpickupitem." + world)) {
+                event.setCancelled(true);
+            }
+        }
+    }
 
 }

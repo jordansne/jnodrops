@@ -17,55 +17,47 @@
 
 package com.jordansne.jnodrops.util;
 
-import java.io.File;
-
 import com.jordansne.jnodrops.JNoDrops;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+
+import java.io.File;
 
 public class ConfigManager {
 
-	private JNoDrops plugin;
-	private static String CONFIG_VERSION = "1";
+    private JNoDrops plugin;
+    private static final int CONFIG_VERSION = 1;
 
-	public ConfigManager(JNoDrops plugin) {
-		this.plugin = plugin;
+    public ConfigManager(JNoDrops plugin) {
+        this.plugin = plugin;
+        this.loadConfig();
+    }
 
-		this.loadConfig();
-	}
+    public void loadConfig() {
+        File config = new File(plugin.getDataFolder(), "config.yml");
 
-	/** Loads the config into memory for settings. */
-	public void loadConfig() {
-		File config = new File(plugin.getDataFolder(), "config.yml");
+        if (!config.exists()) {
+            plugin.saveDefaultConfig();
+        } else {
+            this.checkIfOutdated();
+        }
+    }
 
-		if (!config.exists()) {
-			plugin.saveDefaultConfig();
-		} else {
-			this.checkIfOutdated();
-		}
-	}
+    public void reloadConfig() {
+        this.loadConfig();
+        plugin.reloadConfig();
+    }
 
-	/** Called to refresh config settings. */
-	public void reloadConfig() {
-		this.loadConfig();
-		plugin.reloadConfig();
-	}
+    public void checkIfOutdated() {
+        int existingVersion = plugin.getConfig().getInt("version");
 
-	/** Checks if the current version is outdated and if so, updates it. */
-	public void checkIfOutdated() {
-		// TODO Check Github Releases
-		if (!plugin.getConfig().getString("version").equals(CONFIG_VERSION)) {
-			plugin.getServer().getPluginManager().registerEvents(new Listener() {
-				@EventHandler
-				public void onJoin(PlayerJoinEvent event) {
-					if (event.getPlayer().hasPermission("jnodrops.admin")) {
-						event.getPlayer().sendMessage(plugin.getChatWrapper().getPluginPrefix() + "Erase your old config to allow new one to regenerate!");
-						event.getPlayer().sendMessage(plugin.getChatWrapper().getPluginPrefix() + "(Save your old config to save old settings!)");
-					}
-				}
-			}, plugin);
-		}
-	}
+        if (existingVersion != CONFIG_VERSION) {
+            // When the day comes where there's a config update:
+            // switch (existingVersion) {
+            // 	case 1:
+            // 		// Perform 1 to 2 update.. etc..
+            // 	case 2:
+            // 		// Perform 2 to 3 update.. etc..
+            // }
+        }
+    }
 
 }
