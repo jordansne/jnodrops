@@ -17,6 +17,8 @@
 
 package com.jordansne.jnodrops;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jordansne.jnodrops.command.AdminCommand;
 import com.jordansne.jnodrops.event.DropsManager;
 import com.jordansne.jnodrops.event.PickupManager;
@@ -24,16 +26,19 @@ import com.jordansne.jnodrops.event.PotionsManager;
 import com.jordansne.jnodrops.util.ChatHelper;
 import com.jordansne.jnodrops.util.ConfigManager;
 import com.jordansne.jnodrops.util.Metrics;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.IOException;
 
 public class JNoDrops extends JavaPlugin {
 
@@ -59,46 +64,50 @@ public class JNoDrops extends JavaPlugin {
             getLogger().warning("Failed to hook to Plugin Metrics");
         }
 
-        try {
+        if (getConfig().getBoolean("checkForUpdates")) {
             checkForUpdate();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    private void checkForUpdate() throws IOException {
-        if (!getConfig().getBoolean("checkForUpdates")) {
-            return;
+    private void checkForUpdate()  {
+        String currentVersion = getDescription().getVersion();
+        String latestVersion = null;
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpGet httpGet = new HttpGet("http://api.github.com/repos/jordansne/jnodrops/releases/latest");
+
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                System.out.println(response.getCode() + " " + response.getReasonPhrase());
+                HttpEntity entity  = response.getEntity();
+
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode node = mapper.readTree(entity.getContent());
+                latestVersion = node.get("name").asText();
+
+                EntityUtils.consume(entity);
+            }
+        } catch (Exception e) {
+            getLogger().warning("Unable to check for updates:" + e.getMessage());
         }
 
-        BufferedReader reader = null;
+        if (latestVersion != null && !latestVersion.equals(currentVersion)) {
+            String message1 = "A new version of JNoDrops is available!";
+            String message2 = "Current: " + currentVersion + " Latest: " + latestVersion;
 
-        try {
-            URL url = new URL("https://raw.github.com/jordansne/JNoDrops/master/lastestversion");
-            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            getLogger().info(message1);
+            getLogger().info(message2);
 
-            if (!reader.readLine().equals(getDescription().getVersion())) {
-                getServer().getPluginManager().registerEvents(new Listener() {
-                    @EventHandler
-                    public void onJoin(PlayerJoinEvent event) {
-                        if (event.getPlayer().hasPermission("jnodrops.admin")) {
-                            event.getPlayer().sendMessage(ChatHelper.PLUGIN_PREFIX +
-                                    "A new version of JNoDrops is available!");
-                            event.getPlayer().sendMessage(ChatHelper.PLUGIN_PREFIX +
-                                    "http://dev.bukkit.org/bukkit-plugins/jnodrops/");
-                        }
+            getServer().getPluginManager().registerEvents(new Listener() {
+                @EventHandler
+                public void onJoin(PlayerJoinEvent event) {
+                    Player player = event.getPlayer();
 
+                    if (player.hasPermission("jnodrops.admin")) {
+                        player.sendMessage(ChatHelper.PLUGIN_PREFIX + message1);
+                        player.sendMessage(ChatHelper.PLUGIN_PREFIX + message2);
                     }
-                }, this);
-
-                getLogger().info("A new version of JNoDrops is available! LINK: " +
-                        "http://dev.bukkit.org/bukkit-plugins/jnodrops/");
-            }
-        } catch (IOException e) {
-            getLogger().warning("Unable to check for updates.");
-            e.printStackTrace();
-        } finally {
-            reader.close();
+                }
+            }, this);
         }
     }
 

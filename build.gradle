@@ -20,10 +20,23 @@ repositories {
     }
 }
 
+configurations {
+    bundle
+    implementation.extendsFrom(bundle)
+}
+
 dependencies {
-    compileOnly (group: 'org.bukkit', name: 'bukkit', version: bukkitVersion)
+    implementation (group: 'org.bukkit', name: 'bukkit', version: bukkitVersion)
+    bundle 'org.apache.httpcomponents.client5:httpclient5:5.0'
+    bundle 'com.fasterxml.jackson.core:jackson-databind:2.10.3'
 }
 
 processResources {
     filter(ReplaceTokens, tokens: [ version: version ])
+}
+
+jar {
+    from {
+        configurations.bundle.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
