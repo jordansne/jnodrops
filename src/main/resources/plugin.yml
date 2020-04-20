@@ -32,13 +32,13 @@ permissions:
     description: Allows players to keep the items they attempted to drop.
   jnodrops.dropinventoryondeath:
     default: op
-    description: Players will drop their inventory upon death.
+    description: Allows inventory drops when the player dies.
   jnodrops.usepotion:
     default: op
-    description: Allows players to throw/use potions.
+    description: Allows players to drink/throw potions.
   jnodrops.savepotionbottle:
     default: op
-    description: Players will keep their bottles after drinking.
+    description: Allows players to keep the empty bottles of dranken potions.
   jnodrops.admin:
     default: op
-    description: Allows admin commands to manage the plugin. 
+    description: Allows players commands to use the admin command.
