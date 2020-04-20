@@ -1,6 +1,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'java'
 }
 
@@ -18,17 +19,16 @@ repositories {
     maven {
         url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots'
     }
-}
-
-configurations {
-    bundle
-    implementation.extendsFrom(bundle)
+    maven {
+        url 'https://repo.codemc.org/repository/maven-public'
+    }
 }
 
 dependencies {
-    implementation (group: 'org.bukkit', name: 'bukkit', version: bukkitVersion)
-    bundle 'org.apache.httpcomponents.client5:httpclient5:5.0'
-    bundle 'com.fasterxml.jackson.core:jackson-databind:2.10.3'
+    shadow (group: 'org.bukkit', name: 'bukkit', version: bukkitVersion)
+    implementation 'org.bstats:bstats-bukkit:1.7'
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.3'
 }
 
 processResources {
@@ -36,7 +36,11 @@ processResources {
 }
 
 jar {
-    from {
-        configurations.bundle.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+    archiveClassifier.set 'sourceOnly'
+}
+
+shadowJar {
+    minimize()
+    relocate 'org.bstats', 'com.jordansne.bstats'
+    archiveClassifier.set ''
 }

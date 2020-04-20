@@ -25,22 +25,22 @@ import com.jordansne.jnodrops.event.PickupManager;
 import com.jordansne.jnodrops.event.PotionsManager;
 import com.jordansne.jnodrops.util.ChatHelper;
 import com.jordansne.jnodrops.util.ConfigManager;
-import com.jordansne.jnodrops.util.Metrics;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
-
 public class JNoDrops extends JavaPlugin {
+
+    private static final int BSTATS_PLUGIN_ID = 7238;
 
     private ConfigManager configManager;
 
@@ -54,15 +54,8 @@ public class JNoDrops extends JavaPlugin {
 
         getCommand("jnodrops").setExecutor(new AdminCommand(this));
 
-        // Plugin Metrics
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-
-            getLogger().info("Successfully hooked to Plugin Metrics.");
-        } catch (IOException e) {
-            getLogger().warning("Failed to hook to Plugin Metrics");
-        }
+        // BStats Metrics
+        new Metrics(this, BSTATS_PLUGIN_ID);
 
         if (getConfig().getBoolean("checkForUpdates")) {
             checkForUpdate();
