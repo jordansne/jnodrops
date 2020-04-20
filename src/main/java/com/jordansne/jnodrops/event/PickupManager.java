@@ -17,6 +17,7 @@
 
 package com.jordansne.jnodrops.event;
 
+import com.jordansne.jnodrops.Permission;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,12 +26,11 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 public class PickupManager implements Listener {
 
     @EventHandler
-    public void onBlockDrop(EntityPickupItemEvent event) {
+    public void onItemPickup(EntityPickupItemEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            String world = player.getWorld().getName();
 
-            if (!player.hasPermission("jnodrops.canpickupitem") && !player.hasPermission("jnodrops.canpickupitem." + world)) {
+            if (!player.hasPermission(Permission.ITEM_PICKUP)) {
                 event.setCancelled(true);
             }
         }

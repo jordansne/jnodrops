@@ -38,6 +38,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public class JNoDrops extends JavaPlugin {
 
     private static final int BSTATS_PLUGIN_ID = 7238;
@@ -52,7 +54,7 @@ public class JNoDrops extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PickupManager(), this);
         getServer().getPluginManager().registerEvents(new PotionsManager(this), this);
 
-        getCommand("jnodrops").setExecutor(new AdminCommand(this));
+        Objects.requireNonNull(getCommand("jnodrops")).setExecutor(new AdminCommand(this));
 
         // BStats Metrics
         new Metrics(this, BSTATS_PLUGIN_ID);
@@ -95,7 +97,7 @@ public class JNoDrops extends JavaPlugin {
                 public void onJoin(PlayerJoinEvent event) {
                     Player player = event.getPlayer();
 
-                    if (player.hasPermission("jnodrops.admin")) {
+                    if (player.hasPermission(Permission.ADMIN)) {
                         player.sendMessage(ChatHelper.PLUGIN_PREFIX + message1);
                         player.sendMessage(ChatHelper.PLUGIN_PREFIX + message2);
                     }

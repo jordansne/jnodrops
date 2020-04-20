@@ -18,7 +18,9 @@
 package com.jordansne.jnodrops.event;
 
 import com.jordansne.jnodrops.JNoDrops;
+import com.jordansne.jnodrops.Permission;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +28,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PotionsManager implements Listener {
 
@@ -36,57 +39,59 @@ public class PotionsManager implements Listener {
     }
 
     @EventHandler
-    public void onPotionUse(PlayerInteractEvent event) {
+    public void onPotionDrink(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
-        String world = player.getWorld().getName();
+        ItemStack item = event.getItem();
 
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getItem() != null) {
-            Material material = event.getItem().getType();
-
-            if (material == Material.POTION && !player.hasPermission("jnodrops.canusepotion")
-                    && !player.hasPermission("jnodrops.canusepotion." + world)) {
+        if (item.getType() == Material.POTION) {
+            if (!player.hasPermission(Permission.POTION_USE)) {
                 event.setCancelled(true);
+                sendDenyMessage(player);
 
-                String rawMessage = plugin.getConfig().getString("potionDenyMessage");
-                if (rawMessage != null && !rawMessage.equals("")) {
-                    String message = ChatColor.translateAlternateColorCodes('&', rawMessage);
-                    event.getPlayer().sendMessage(message);
-                }
+            } else if (!player.hasPermission(Permission.POTION_KEEP_BOTTLE) && player.getGameMode() != GameMode.CREATIVE) {
+                player.getServer().getScheduler().runTask(plugin, (task) -> {
+                    if (player.getInventory().getItemInMainHand().getType() == Material.GLASS_BOTTLE) {
+                        player.getInventory().setItemInMainHand(null);
+
+                    } else if (player.getInventory().getItemInOffHand().getType() == Material.GLASS_BOTTLE) {
+                        player.getInventory().setItemInOffHand(null);
+
+                    } else {
+                        // If the player tries to exploit the delay of clearing the bottle by swapping to another
+                        // item selection, manually find it and delete it from their inventory.
+                        ItemStack[] inventoryItems = player.getInventory().getContents();
+
+                        for (ItemStack inventoryItem : inventoryItems) {
+                            if (inventoryItem != null && inventoryItem.getType() == Material.GLASS_BOTTLE) {
+                                inventoryItem.setAmount(inventoryItem.getAmount() - 1);
+                                break;
+                            }
+                        }
+                    }
+                });
             }
         }
     }
 
     @EventHandler
-    public void onPotionDrink(PlayerItemConsumeEvent event) {
+    public void onPotionSplash(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        String world = player.getWorld().getName();
+        ItemStack item = event.getItem();
 
-        if (!player.hasPermission("jnodrops.savepotionbottle")
-                && !player.hasPermission("jnodrops.savepotionbottle." + world)) {
-            Material material = event.getItem().getType();
-
-            if (material == Material.POTION) {
-                new PotionThread(event.getPlayer()).start();
-            }
+        if (item != null && item.getType() == Material.SPLASH_POTION
+                && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+                && !player.hasPermission(Permission.POTION_USE)) {
+            event.setCancelled(true);
+            sendDenyMessage(player);
         }
     }
 
-    private static class PotionThread extends Thread {
-        private Player player;
+    private void sendDenyMessage(Player player) {
+        String rawMessage = plugin.getConfig().getString("potionDenyMessage");
 
-        public PotionThread(Player player) {
-            this.player = player;
-        }
-
-        @Override
-        public void run() {
-            try {
-                sleep(100);
-
-                if (player.getInventory().getItemInMainHand().getType() == Material.GLASS_BOTTLE) {
-                    player.getInventory().setItemInMainHand(null);
-                }
-            } catch (InterruptedException ignored) {}
+        if (rawMessage != null && !rawMessage.equals("")) {
+            String message = ChatColor.translateAlternateColorCodes('&', rawMessage);
+            player.sendMessage(message);
         }
     }
 

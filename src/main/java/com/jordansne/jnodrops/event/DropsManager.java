@@ -18,6 +18,7 @@
 package com.jordansne.jnodrops.event;
 
 import com.jordansne.jnodrops.JNoDrops;
+import com.jordansne.jnodrops.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,12 +35,11 @@ public class DropsManager implements Listener {
     }
 
     @EventHandler
-    public void onBlockDrop(PlayerDropItemEvent event) {
+    public void onItemDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
-        String world = player.getWorld().getName();
 
-        if (!player.hasPermission("jnodrops.candropitem") && !player.hasPermission("jnodrops.candropitem." + world)) {
-            if (!player.hasPermission("jnodrops.getitemback") && !player.hasPermission("jnodrops.getitemback." + world)) {
+        if (!player.hasPermission(Permission.ITEM_DROP)) {
+            if (!player.hasPermission(Permission.ITEM_KEEP_DROPPED)) {
                 event.getItemDrop().remove();
             } else {
                 event.setCancelled(true);
@@ -52,9 +52,8 @@ public class DropsManager implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        String world = player.getWorld().getName();
 
-        if (!player.hasPermission("jnodrops.dropondeath") && !player.hasPermission("jnodrops.dropondeath." + world)) {
+        if (!player.hasPermission(Permission.ITEM_DROP_ON_DEATH)) {
             event.getDrops().clear();
         }
     }
