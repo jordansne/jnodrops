@@ -1,28 +1,22 @@
-# JNoDrops
+# JNoDrops | [![Build](https://github.com/jordansne/jnodrops/workflows/Build/badge.svg?branch=develop)](https://github.com/jordansne/jnodrops/actions?query=workflow%3ABuild) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/jordansne/jnodrops)](https://github.com/jordansne/jnodrops/releases/latest) [![Spigot Downloads](https://img.shields.io/spiget/downloads/77861?label=downloads)](https://www.spigotmc.org/resources/jnodrops.77861/)
 
-## Description
-
-This is a simple plugin created for the intent of disabling certain groups to drop items to share, whether it be because of anti-lag, or you dont want people to share items.
+This is a simple plugin created to limit item dropping, pickup, potion usage & more. It was written back in 2013, but
+has since been revived to support the latest version of Bukkit/Spigot.
 
 ## Features
 
-This lightweight plugin allows blocking of the following things:
+This lightweight plugins supports limiting of the following events:
 
-* Players dropping stuff out of their inventory onto the ground.
-* Players throwing/using potions.
-* Dropping players inventories when they die.
-* Getting rid of empty potion bottles when you drink.
+* Prevent item pickup & dropping
+* Prevent throwing/drinking potions
+* Discard empty potion bottles on potion drink
+* Prevent dropping of inventory items on death
 
-It also supports:
-* Per-world permissions.
-* Automatic update checking.
+## Documentation
 
-## Feedback & Support
+See the [wiki page](https://github.com/jordansne/jnodrops/wiki) for information on getting started with using this
+plugin, as well as configuration, permission & command information.
 
-Have an opinion, review, etc about the plugin? Leave a comment on the BukkitDev page!
+## Feedback & Bugs
 
-Feel free to make any contributions to my github repo!
-
-If you have an issue or bug to report, please create a ticket on the github page.
-
-I'm looking for suggestions! So please create a ticket here for me to review it!
+Please [create an issue](https://github.com/jordansne/jnodrops/issues/new) to report a bug or to suggest a new feature.
