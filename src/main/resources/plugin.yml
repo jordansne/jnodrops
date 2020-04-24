@@ -19,7 +19,7 @@ permissions:
       jnodrops.keepdroppeditem: true
       jnodrops.dropinventoryondeath: true
       jnodrops.usepotion: true
-      jnodrops.savepotionbottle: true
+      jnodrops.keeppotionbottle: true
       jnodrops.admin: true
   jnodrops.dropitem:
     default: op
@@ -36,7 +36,7 @@ permissions:
   jnodrops.usepotion:
     default: op
     description: Allows players to drink/throw potions.
-  jnodrops.savepotionbottle:
+  jnodrops.keeppotionbottle:
     default: op
     description: Allows players to keep the empty bottles of dranken potions.
   jnodrops.admin:

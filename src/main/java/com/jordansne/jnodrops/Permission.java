@@ -11,5 +11,5 @@ public class Permission {
     public static final String ITEM_DROP_ON_DEATH = PLUGIN_PREFIX + "dropinventoryondeath";
 
     public static final String POTION_USE         = PLUGIN_PREFIX + "usepotion";
-    public static final String POTION_KEEP_BOTTLE = PLUGIN_PREFIX + "savepotionbottle";
+    public static final String POTION_KEEP_BOTTLE = PLUGIN_PREFIX + "keeppotionbottle";
 }

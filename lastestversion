@@ -1,0 +1,3 @@
+This poorly named file is used for legacy version checking prior to v2.0.0.
+Thankfully, this file won't need to be updated again, as since v2.0.0, the plugin
+will check for updates via Github's Release REST API.
