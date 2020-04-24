@@ -1,10 +1,11 @@
 name: JNoDrops
-author: jsne10
-version: 1.5.1
-description: Simple bukkit anti-drop system.
+author: Jordan Sne
+version: @version@
+description: Simple bukkit anti-drop plugin.
 website: http://dev.bukkit.org/server-mods/jnodrops/
 
-main: com.jsne10.jnodrops.JNoDrops
+main: com.jordansne.jnodrops.JNoDrops
+api-version: 1.13
 commands:
   jnodrops:
     description: Administrative commands for JNoDrops.
@@ -13,31 +14,31 @@ commands:
 permissions:
   jnodrops.*:
     children:
-      jnodrops.candropitem: true
-      jnodrops.canpickupitem: true
-      jnodrops.getitemback: true
-      jnodrops.canusepotion: true
-      jnodrops.dropondeath: true
+      jnodrops.dropitem: true
+      jnodrops.pickupitem: true
+      jnodrops.keepdroppeditem: true
+      jnodrops.dropinventoryondeath: true
+      jnodrops.usepotion: true
       jnodrops.savepotionbottle: true
       jnodrops.admin: true
-  jnodrops.candropitem:
+  jnodrops.dropitem:
     default: op
     description: Allows players to drop items.
-  jnodrops.canpickupitem:
+  jnodrops.pickupitem:
     default: op
     description: Allows players to pickup items.
-  jnodrops.getitemback:
+  jnodrops.keepdroppeditem:
     default: op
-    description: Allows players to keep the items that are blocked from dropping.
-  jnodrops.canusepotion:
+    description: Allows players to keep the items they attempted to drop.
+  jnodrops.dropinventoryondeath:
     default: op
-    description: Allows players to throw/use potions.
-  jnodrops.dropondeath:
+    description: Allows inventory drops when the player dies.
+  jnodrops.usepotion:
     default: op
-    description: Players will drop their inventory upon death.
+    description: Allows players to drink/throw potions.
   jnodrops.savepotionbottle:
     default: op
-    description: Players will keep their bottles after drinking.
+    description: Allows players to keep the empty bottles of dranken potions.
   jnodrops.admin:
     default: op
-    description: Allows admin commands to manage the plugin. 
+    description: Allows players commands to use the admin command.

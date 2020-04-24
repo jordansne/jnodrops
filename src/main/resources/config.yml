@@ -1,4 +1,4 @@
-# CONFIG VERSION, WILL ERASE YOUR CONFIG IF YOU ALTER.
+# Config version, do not touch!
 version: 1
 
 # Set if you the plugin to automatically alert you of plugin updates.
