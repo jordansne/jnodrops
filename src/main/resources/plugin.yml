@@ -2,7 +2,7 @@ name: JNoDrops
 author: Jordan Sne
 version: @version@
 description: Simple bukkit anti-drop plugin.
-website: http://dev.bukkit.org/server-mods/jnodrops/
+website: https://www.spigotmc.org/resources/jnodrops.77861/
 
 main: com.jordansne.jnodrops.JNoDrops
 api-version: 1.13
