@@ -17,6 +17,7 @@
 
 package com.jordansne.jnodrops.event;
 
+import com.jordansne.jnodrops.Config;
 import com.jordansne.jnodrops.JNoDrops;
 import com.jordansne.jnodrops.Permission;
 import org.bukkit.ChatColor;
@@ -87,7 +88,7 @@ public class PotionsManager implements Listener {
     }
 
     private void sendDenyMessage(Player player) {
-        String rawMessage = plugin.getConfig().getString("potionDenyMessage");
+        String rawMessage = plugin.getConfig().getString(Config.POTION_DENY_MESSAGE);
 
         if (rawMessage != null && !rawMessage.equals("")) {
             String message = ChatColor.translateAlternateColorCodes('&', rawMessage);

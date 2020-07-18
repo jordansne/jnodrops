@@ -17,6 +17,7 @@
 
 package com.jordansne.jnodrops.event;
 
+import com.jordansne.jnodrops.Config;
 import com.jordansne.jnodrops.JNoDrops;
 import com.jordansne.jnodrops.Permission;
 import org.bukkit.ChatColor;
@@ -59,7 +60,7 @@ public class DropsManager implements Listener {
     }
 
     private void sendAlert(Player player) {
-        String rawMessage = plugin.getConfig().getString("dropDenyMessage");
+        String rawMessage = plugin.getConfig().getString(Config.DROP_DENY_MESSAGE);
 
         if (rawMessage != null && !rawMessage.equals("")) {
             String message = ChatColor.translateAlternateColorCodes('&', rawMessage);

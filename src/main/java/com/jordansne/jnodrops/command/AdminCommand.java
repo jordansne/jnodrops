@@ -19,7 +19,6 @@ package com.jordansne.jnodrops.command;
 
 import com.jordansne.jnodrops.JNoDrops;
 import com.jordansne.jnodrops.util.ChatHelper;
-import com.jordansne.jnodrops.util.ConfigManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,11 +27,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 public class AdminCommand implements CommandExecutor {
 
     private JNoDrops plugin;
-    private ConfigManager config;
 
     public AdminCommand(JNoDrops plugin) {
         this.plugin = plugin;
-        this.config = plugin.getConfigManager();
     }
 
     @Override
@@ -43,7 +40,7 @@ public class AdminCommand implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
-            config.reloadConfig();
+            plugin.reloadConfig();
             sender.sendMessage(ChatHelper.PLUGIN_PREFIX + "Config Reloaded.");
             return true;
         }
