@@ -1,4 +1,5 @@
-version: 1
 checkForUpdates: true
+sendUpdateAlertToAdmins: true
 dropDenyMessage: "&c[JNoDrops] &7You aren't allowed to drop items."
 potionDenyMessage: "&c[JNoDrops] &7You aren't allowed to use potions."
+version: 2

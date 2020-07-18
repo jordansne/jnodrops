@@ -22,6 +22,7 @@ public class Config {
     public static final String VERSION = "version";
 
     public static final String CHECK_FOR_UPDATES = "checkForUpdates";
+    public static final String SEND_UPDATE_ALERT_TO_ADMINS = "sendUpdateAlertToAdmins";
     public static final String DROP_DENY_MESSAGE = "dropDenyMessage";
     public static final String POTION_DENY_MESSAGE = "potionDenyMessage";
 
