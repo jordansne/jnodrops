@@ -17,9 +17,8 @@
 
 package com.jordansne.jnodrops.util;
 
+import com.jordansne.jnodrops.Config;
 import com.jordansne.jnodrops.JNoDrops;
-
-import java.io.File;
 
 public class ConfigManager {
 
@@ -31,23 +30,13 @@ public class ConfigManager {
         this.loadConfig();
     }
 
-    public void loadConfig() {
-        File config = new File(plugin.getDataFolder(), "config.yml");
-
-        if (!config.exists()) {
-            plugin.saveDefaultConfig();
-        } else {
-            this.checkIfOutdated();
-        }
+    private void loadConfig() {
+        plugin.saveDefaultConfig();
+        checkIfOutdated();
     }
 
-    public void reloadConfig() {
-        this.loadConfig();
-        plugin.reloadConfig();
-    }
-
-    public void checkIfOutdated() {
-        int existingVersion = plugin.getConfig().getInt("version");
+    private void checkIfOutdated() {
+        int existingVersion = plugin.getConfig().getInt(Config.VERSION);
 
         if (existingVersion != CONFIG_VERSION) {
             // When the day comes where there's a config update:

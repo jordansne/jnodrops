@@ -44,11 +44,9 @@ public class JNoDrops extends JavaPlugin {
 
     private static final int BSTATS_PLUGIN_ID = 7238;
 
-    private ConfigManager configManager;
-
     @Override
     public void onEnable() {
-        configManager = new ConfigManager(this);
+        new ConfigManager(this);
 
         getServer().getPluginManager().registerEvents(new DropsManager(this), this);
         getServer().getPluginManager().registerEvents(new PickupManager(), this);
@@ -59,7 +57,7 @@ public class JNoDrops extends JavaPlugin {
         // BStats Metrics
         new Metrics(this, BSTATS_PLUGIN_ID);
 
-        if (getConfig().getBoolean("checkForUpdates")) {
+        if (getConfig().getBoolean(Config.CHECK_FOR_UPDATES)) {
             checkForUpdate();
         }
     }
@@ -104,10 +102,6 @@ public class JNoDrops extends JavaPlugin {
                 }
             }, this);
         }
-    }
-
-    public ConfigManager getConfigManager() {
-        return configManager;
     }
 
 }
